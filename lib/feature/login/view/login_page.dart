@@ -15,7 +15,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                               print("Logged in");
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFE65C00),
+                              backgroundColor: Color(0xFFFF8D28),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
