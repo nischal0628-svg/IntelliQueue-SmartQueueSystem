@@ -1,0 +1,19 @@
+flutter run -d chrome
+
+python3 -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8080
+
+
+flutter run
+
+
+
+
+0000000000 999999999 8888888888 777777777
+password : Test@123
+
+staff1@gmail.com
+Test@123
+
+
+admin@gmail.com
+Admin@123

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python3 -m pip install -r "$(dirname "$0")/requirements.txt"
+python3 -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8080
+

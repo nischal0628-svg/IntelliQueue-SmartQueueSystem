@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intelliqueue/feature/book_token/view/book_token_page.dart';
+import 'package:intelliqueue/feature/login/view/login_page.dart'; // Adjust path if needed
+import 'package:intelliqueue/feature/my_token/view/my_token_page.dart';
+import 'package:intelliqueue/feature/track_queue/view/track_queue_page.dart';
+import 'package:intelliqueue/local_auth/local_auth.dart';
+import 'package:intelliqueue/ui/app_nav.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Best-effort: keep token status synced with backend (so completed tokens disappear).
+    LocalAuth.refreshActiveBookingFromBackend();
+  }
+
+  Future<void> _logout() async {
+    await LocalAuth.signOut();
+    if (mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+        (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +59,21 @@ class HomePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          Icons.notifications_none,
-                          color: Colors.white,
-                          size: 28.sp,
+                        IconButton(
+                          onPressed: () => AppNav.openNotifications(context),
+                          icon: Icon(
+                            Icons.notifications_none,
+                            color: Colors.white,
+                            size: 28.sp,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => AppNav.openProfile(context),
+                          icon: Icon(
+                            Icons.person_outline,
+                            color: Colors.white,
+                            size: 28.sp,
+                          ),
                         ),
                       ],
                     ),
@@ -55,127 +94,137 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20.h),
 
             // ================= CURRENT TOKEN CARD =================
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22.w),
-              child: Container(
-                padding: EdgeInsets.all(20.w),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
+            ValueListenableBuilder(
+              valueListenable: LocalAuth.bookingsListenable(),
+              builder: (context, _, __) {
+                final booking = LocalAuth.getActiveBookingForCurrentUserSync();
+                final tokenNumber = (booking?['tokenNumber'] ?? '-').toString();
+                final serviceName = (booking?['serviceName'] ?? 'No active token').toString();
+                final branchName = (booking?['branchName'] ?? '').toString();
+                final status = (booking?['status'] ?? '').toString();
+                final isActive = booking != null && status == 'active';
+                final peopleAhead = (booking?['peopleAhead'] as int?) ?? 0;
+                final etaMinutes = (booking?['estimatedWaitMinutes'] as int?) ?? 0;
+
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 22.w),
+                  child: Container(
+                    padding: EdgeInsets.all(20.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header Row
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Current Token",
+                              style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                              decoration: BoxDecoration(
+                                color: isActive ? const Color(0xFFD4F6E6) : const Color(0xFFE5E7EB),
+                                borderRadius: BorderRadius.circular(20.r),
+                              ),
+                              child: Text(
+                                isActive ? "active" : "none",
+                                style: TextStyle(
+                                  color: isActive ? const Color(0xFF2DBE78) : const Color(0xFF6B7280),
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.h),
                         Text(
-                          "Current Token",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.grey[600],
-                          ),
+                          isActive ? tokenNumber : "--",
+                          style: TextStyle(fontSize: 48.sp, fontWeight: FontWeight.bold),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 4.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFD4F6E6),
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: Text(
-                            "active",
-                            style: TextStyle(
-                              color: const Color(0xFF2DBE78),
-                              fontSize: 12.sp,
+                        SizedBox(height: 8.h),
+                        Text(
+                          isActive
+                              ? "$serviceName${branchName.isEmpty ? '' : ' - $branchName'}"
+                              : "You don’t have an active token",
+                          style: TextStyle(fontSize: 15.sp, color: Colors.grey[700]),
+                        ),
+                        SizedBox(height: 12.h),
+                        Divider(color: Colors.grey[300]),
+                        SizedBox(height: 12.h),
+                        if (isActive)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "People ahead",
+                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                  Text(
+                                    "$peopleAhead",
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Est. wait time",
+                                    style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                  Text(
+                                    "$etaMinutes min",
+                                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        else
+                          SizedBox(
+                            width: double.infinity,
+                            height: 44.h,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (_) => const BookTokenPage()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF2F80ED),
+                                foregroundColor: Colors.white,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14.r),
+                                ),
+                              ),
+                              child: Text(
+                                "Book Token",
+                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     ),
-
-                    SizedBox(height: 10.h),
-
-                    Text(
-                      "A042",
-                      style: TextStyle(
-                        fontSize: 48.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    SizedBox(height: 8.h),
-
-                    Text(
-                      "Customer Service - Branch 1",
-                      style: TextStyle(
-                        fontSize: 15.sp,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-
-                    SizedBox(height: 12.h),
-                    Divider(color: Colors.grey[300]),
-                    SizedBox(height: 12.h),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "People ahead",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            SizedBox(height: 5.h),
-                            Text(
-                              "5",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Est. wait time",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            SizedBox(height: 5.h),
-                            Text(
-                              "12 min",
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
 
             SizedBox(height: 25.h),
@@ -184,19 +233,60 @@ class HomePage extends StatelessWidget {
             _buildMenuCard(
               title: "Book Token",
               subtitle: "Join a queue",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const BookTokenPage()),
+                );
+              },
             ),
 
             _buildMenuCard(
               title: "My Token",
               subtitle: "View active tokens",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const MyTokenPage()),
+                );
+              },
             ),
 
             _buildMenuCard(
               title: "Track Queue",
               subtitle: "Real-time status",
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const TrackQueuePage()),
+                );
+              },
+            ),
+
+            SizedBox(height: 30.h),
+
+            // ================= LOGOUT BUTTON =================
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 22.w),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  onPressed: _logout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE74C3C),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    elevation: 3,
+                  ),
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
             ),
 
             SizedBox(height: 30.h),

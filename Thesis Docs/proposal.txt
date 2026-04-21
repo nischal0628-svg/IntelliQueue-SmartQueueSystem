@@ -1,0 +1,302 @@
+Module Code & Module Title
+CS6P05NI Project
+Proposal
+5% Individual Coursework
+Submission: Final Submission
+AY 2025 2026
+Academic Semester: Autumn Semester 2025
+Credit: 30 Credit Year Long Module
+Student Name: Nischal Sentury
+London Met ID: 22068082
+Assignment Due Date: Wednesday, December 3, 2025
+Assignment Submission Date: Wednesday, December 3, 2025
+Internal Supervisor: Mr. Alish KC
+External Supervisor: Mr. Jagaran Maharjan
+I confirm that I understand my coursework needs to be submitted online via MST Classroom under the
+relevant module page before the deadline for my assignment to be accepted and marked. I am fully
+aware that late submissions will be treated as non-submission and a mark of zero will be awarded.
+Table of Contents
+1. Introduction. .................................................................................................................. 3
+1.2 Problem scenario. ..............................................................................................................4
+Project as a solution. ............................................................................................................. 5
+2. Aims and Objectives. ...................................................................................................... 5
+3. Expected Outcomes and Deliverables:............................................................................. 6
+3.1 Functional Software System......................................................................................................6
+User Mobile Application ....................................................................................................................................... 7
+Admin Web Dashboard ........................................................................................................................................ 7
+3.2 Technical Documentation ...................................................................................................7
+3.3 User Documentation ................................................................................................................8
+3.4 Testing & Validation Reports ....................................................................................................8
+3.5 Deployment .............................................................................................................................8
+4. Project risks, threats, and contingency plans. .................................................................. 9
+5. Methodology. .............................................................................................................. 10
+6. Resources Requirement. ............................................................................................... 10
+6.1 Hardware Requirements ......................................................................................................... 10
+6.2 Software Requirements .......................................................................................................... 11
+6.3 Specialist Tools & Technologies.................................................................................................................... 11
+6.4 Publications, Journals & Reference Materials .............................................................................................. 11
+7. Work Breakdown Structure. ......................................................................................... 12
+8. Milestones. .................................................................................................................. 13
+9. Gantt Chart. ................................................................................................................. 15
+10. Conclusion. ............................................................................................................... 16
+1. Introduction.
+The service industry sectors in Nepal including banking, healthcare, government offices,
+and private service centers have been showing growing customer traffic in the recent
+years. Nevertheless, most institutions continue to rely on manual, old fashioned
+techniques of queueing, which cause lengthy queues, congestions, and
+misunderstanding. Lack of a centralized digital system does not allow customers to book
+their position in advance and check the real-time queue status, as well as to get the right
+waiting-time information (NRB Service Experience Report, 2024).
+The process of service delivery is usually slow and unpredictable due to the use of manual
+tokens distribution and verbal announcements. Employees find it difficult to handle a huge
+number of people, to ensure the accuracy of the tokens, and to address or serve a priority
+group, including senior citizens or VIPs (Nepal Public Service Analysis, 2023). This leads
+to poor coordination and satisfaction of the customers and service providers (Council,
+2024).
+As a solution to these issues, this project will suggest IntelliQueue as one of the modern
+digital queue and tokens management systems which would combine remote booking of
+tokens, live tracking of the queue, priority management, and AI-based waiting-time
+prediction. The IntelliQueue mobile application will help customers to add tokens and get
+notifications, and track their queue status, whereas the staff will manage operations with
+the help of a special web-based dashboard ((MoCIT), 2024). Also, there are new services
+that make the check-in processes and updates instant, which facilitate the whole service
+experience (Service Innovation Trends, 2024).
+The system will help to decrease waiting time, minimize crowding, and increase efficiency
+of the provided services by substituting the ancient manual approaches with a new digital
+one. The project facilitates more favourable, open, and customer-oriented service settings
+in Nepal, which is part of the digital transformation of the country (Unit, 2023).
+1.2 Problem scenario.
+The banks, hospitals, government offices, and other private centers in Nepal have
+outdated manual regimes, which make the process of managing queues stressful ( Nepal
+Service Efficiency Report, 2023). In the absence of a centralised digital platform, the
+customers will not be able to remotely redeem tokens, monitor queue status, and get
+approximate waiting time predictions (Digital Nepal Framework, 2024). Visitors are forced
+to stay physically, as a visitor depends on verbal updates, or have to check their status
+repeatedly, which leads to frustration and inefficiency.
+These problems arise from:
+• Dependence on manual processes such as paper tokens or verbal
+announcements.
+• Lack of real-time information, causing customers to stay onsite for extended
+periods.
+• Overcrowding and confusion during peak hours.
+• Difficulty prioritizing urgent or special-case customers.
+• No centralized system, requiring staff to manage queues manually.
+Supporting Data:
+• Studies show customers prefer digital queue systems for predictability and
+reduced waiting (Service Quality Report, 2024).
+• Crowding in banks and hospitals remains one of the top complaints among visitors
+(Nepal Public Service Analysis, 2023).
+• Real-time queue management systems improve service efficiency by up to 40% in
+similar environments (QueueTech Research, 2024).
+Project as a solution.
+The IntelliQueue directly addresses the issues above by offering:
+• Remote token booking to reduce physical crowding.
+• Real-time queue tracking for transparency.
+• Priority queue handling for VIPs, senior citizens, and emergency cases.
+• AI-based waiting-time prediction to help customers plan their visit.
+• QR-based check-in for fast and contactless arrival confirmation.
+• Admin dashboard for efficient queue management.
+This digital solution modernizes service operations, enhances customer experience, and
+supports Nepal’s progress toward digital transformation.
+2. Aims and Objectives.
+Aim:
+To develop a real-time, AI-assisted digital queue management system that reduces
+physical waiting time and enhances service efficiency and customer experience.
+Objectives:
+• Build a cross-platform mobile application using Flutter.
+• Develop a web-based admin dashboard for queue and counter management.
+• Implement real-time synchronization using Firebase Firestore.
+• Integrate priority queueing (Normal, VIP, Senior Citizen).
+• Develop an AI-based wait-time estimation feature.
+• Implement push notifications through Firebase Cloud Messaging.
+• Conduct functional, usability, and performance testing.
+• Prepare complete software and user documentation.
+3. Expected Outcomes and Deliverables:
+By the end of the project, the highly modern digital queue and token management system,
+IntelliQueue, will be provided with a fully functional setup including a mobile application,
+an administration dashboard, real-time synchronization, and fully documented.
+3.1 Functional Software System
+The main outcome of the project is a complete digital queue management system
+designed to reduce waiting times and improve service flow.
+User Mobile Application
+The mobile app will allow customers to:
+• Register/login securely
+• Book remote tokens
+• Generate on-site tokens using QR
+• View real-time queue status
+• See priority categories (Normal, VIP, Senior Citizen)
+• Receive AI-based waiting-time estimates
+• Get notifications when their turn is near
+• Check in using QR
+• View their token history
+Admin Web Dashboard
+The web dashboard will allow staff to:
+• Log in securely
+• Create and manage queues
+• Issue, call, skip, or cancel tokens
+• Assign counters
+• Monitor queue updates in real time
+• Send notifications to users
+• Manage token priorities
+• View basic service analytics
+3.2 Technical Documentation
+The project will include:
+• System architecture description
+• ER diagrams and data models
+• Class diagrams and API/Firebase operation documentation
+• Documentation of the AI waiting-time estimation logic
+3.3 User Documentation
+User manuals will be provided for:
+• Mobile app usage
+• Admin dashboard operations
+• Troubleshooting and frequently asked questions
+3.4 Testing & Validation Reports
+Testing deliverables will include:
+• Functional testing results
+• Usability testing feedback
+• Performance testing outcomes
+• Bug lists and resolution reports
+3.5 Deployment
+Final deployment deliverables include:
+• Web dashboard hosted on Firebase Hosting
+• Android APK for installation
+• Maintenance and update instructions
+4. Project risks, threats, and contingency plans.
+1.Risk: Real-time synchronization issues between the mobile app, dashboard, and
+Firebase.
+Threat: Queue updates may become delayed or inaccurate.
+Contingency Plan: Use optimized Firestore listeners, well-defined database rules, and
+conduct early real-time performance testing. ((MoCIT), 2024)
+2.Risk: Deployment challenges on Firebase Hosting or app stores.
+Threat: The system may experience downtime or fail to deploy correctly.
+Contingency Plan: Perform deployment tests in a staging environment and maintain
+backup configuration files.
+3. Risk: Low user engagement or difficulty adopting the digital system.
+Threat: Users may continue preferring traditional physical queues.
+Contingency Plan: Provide a simple, intuitive UI, include onboarding guidance, and gather
+feedback to refine usability.
+4.Risk: Incorrect data entry by users or staff.
+Threat: Mismanaged queues and delays may occur.
+Contingency Plan: Implement strong input validation, add confirmation prompts, and
+provide clear usage instructions.
+5. Risk: Limited experience with certain technologies such as Flutter Web or AI estimation.
+Threat: Development progress may slow down.
+Contingency Plan: Utilize official documentation, online tutorials, and break tasks into
+manageable learning segments.
+6.Risk: Internet or Firebase downtime affecting real-time updates.
+Threat: Queue information may temporarily fail to refresh.
+Contingency Plan: Enable offline support and allow temporary manual queue controls for
+administrators.
+5. Methodology.
+The Extreme Programming (XP) methodology was selected as the most appropriate one
+to use in the given project since it is most appropriate when it comes to small groups and
+limited development cycles. XP focuses on short iterations, minimal design, and constant
+feedback and all these features are helpful in the quick development of features like
+queue management, token generation, and notification processing. Its iterative nature
+gives the developer the ability to develop the system in bits and test as he goes and
+improve on features as discoveries are made as the system develops.
+XP can also be more easily adapted to changes, as it deals with real-time elements such
+as Firebase and novel technologies such as the use of AI-based efficiency in estimating
+waiting-time. XP ensures that the workload of development is never overwhelming and
+that development is always made in a steady manner by avoiding large tasks, since they
+are hard to manage.
+Benefits of Extreme Programming include:
+• High-Quality Output: Continuous testing improves reliability and reduces bugs.
+• Adaptability: Requirements can be adjusted easily as the system evolves.
+• Efficiency: Breaking tasks into small sprints supports steady work completion.
+• Risk Reduction: Regular iterations help identify issues early in the process.
+6. Resources Requirement.
+6.1 Hardware Requirements
+• Computer: A laptop or desktop capable of running Flutter, Firebase tools, and
+Android Studio smoothly.
+• Stable Internet: Required for Firebase integration, app testing, and deployment.
+6.2 Software Requirements
+• IDE: Visual Studio Code or Android Studio.
+• Frontend (User App): Flutter (Dart).
+• Frontend (Admin Dashboard): Flutter Web or React.
+• Backend Services: Firebase Authentication, Firestore Database, Cloud
+Messaging.
+• Design Tools: Figma for UI/UX design.
+• Version Control: GitHub for managing source code and project history.
+6.3 Specialist Tools & Technologies
+• QR code generation and scanning libraries for token creation and user check-in.
+• AI or algorithmic model for estimated waiting-time calculation.
+• Firebase Analytics or Google Analytics for system performance monitoring.
+• Packages and dependencies for state management, real-time updates, and UI
+components.
+6.4 Publications, Journals & Reference Materials
+• Research papers on queue management technologies.
+• Human–Computer Interaction (HCI) literature supporting design decisions.
+• Nepal government reports on public service efficiency and customer experience.
+• Market research on digital transformation in service sectors.
+• Official Flutter and Firebase documentation.
+• Studies on machine learning–based time prediction models.
+7. Work Breakdown Structure.
+Figure 1: work break down structure
+8. Milestones.
+ProjectInitiation:
+Define project scope, user stories, UI/UX design for mobile and dashboard, and Firestore
+database structure.
+Sprint Development:
+Sprint1:
+Implement and test user authentication (login/registration) and basic app navigation.
+Sprint2:
+monitoring.
+Develop remote token booking, on-site QR token generation, and real-time queue
+Sprint3:
+Build admin dashboard login, queue creation, queue management, and token operations
+(next, skip, cancel).
+Sprint4:
+Add counter assignment features and integrate queue listing UI for admins.
+Sprint5:
+Implement priority queue handling (Normal, VIP, Senior Citizen).
+Sprint6:
+Develop AI-based waiting-time estimation module.
+Sprint7:
+Integrate push notifications (FCM) for token updates and upcoming turn alerts.
+Sprint8:
+Add QR-based check-in and refine mobile–dashboard real-time sync.
+Sprint9:
+Improve overall system performance, UI polish, and fix detected issues.
+Sprint10:
+Conduct full functional testing across both mobile app and dashboard.
+Sprint11:
+Finalize testing, validate all features, and ensure system readiness for deployment.
+Documentation:
+Complete all project documents, including system documentation, user manuals, and
+testing reports.
+Deployment:
+Deploy the dashboard on Firebase Hosting, generate the Android APK, and prepare the
+final working product.
+9. Gantt Chart.
+Figure 2: Gantt chart
+10. Conclusion.
+This project ends with the coming up with of a IntelliQueue that would enhance efficiency
+in the services of the banks, hospitals, government offices and other service centers that
+are privately situated in Nepal. The conventional queueing habits are known to generate
+a long queue, congestion, and unreliable service provision both to the customers and
+employees. The system provides an efficient and convenient solution to these frequent
+problems by adding new functionalities like remote token booking, tracking queues in real-
+time, priority-based servicing, as well as AI-assisted waiting-time estimation.
+The XP approach was in favor of the iterative and adaptable development cycle so that
+the system functionality can be continuously enhanced during the project schedule.
+Firebase also played an important role as it offered real-time synchronization, safe
+authentication, and scalable data management, which guaranteed consistent
+performance of the system. The mobile application and the administrative dashboard
+were made to be easy to use and user-friendly to aid in enhancing usability among the
+service seekers and the members of staff as well.
+All in all, this project provides a full and operational digital queue management system,
+which increases the efficiency of moving to the next service point, decreases the physical
+congestion, and leads to more customer satisfaction. It also tackles the current issues in
+service sectors in Nepal as well as reinforcing the overall digital transformation in the
+country. This project is a powerful and worthy Final Year Project of the 2025/26 academic
+year by providing the technically sound solution, easy to use, and socially impactful one.
+11. Bibliography
+Bibliography (Unit, 2023) (google, n.d.)
+Bank, N. R. (n.d.). NRB Service Experience Report. Kathmandu: Nepal Rastra Bank.
+Nepal, G. o. (2023). Nepal Public Service Analysis . Kathmandu: Government of Nepal .
+(MoCIT), M. o. (2024). Service Innovation Trends . Kathmandu: MoCIT.
+Council, N. S. (2024). Service Quality Report . Nepal Service Quality Council.
+Unit, G. o.–S. (2023). Nepal Service Efficiency Report . Kathmandu: Government of
+Nepal .
+google. (n.d.). Flutter Documentation. Retrieved from https://docs.flutter.dev

@@ -1,0 +1,107 @@
+INTELLIQUEUE - MAIN FEATURES TEST (SHORT)
+
+1) App launch + basic navigation
+- Step 1: Close the app fully.
+- Step 2: Open the app again (cold start).
+- Step 3: Tap Home / Profile / Settings.
+- Expected: No crash, all pages open.
+
+2) Sign up (Create account)
+- Step 1: Open Sign up page.
+- Step 2: Enter valid name/email/password and submit.
+- Step 3: Try again with invalid email or weak password.
+- Expected: Valid signup succeeds; invalid input shows error.
+
+3) Login (Sign in)
+- Step 1: Open Login page.
+- Step 2: Sign in with correct email + password.
+- Step 3: Logout, then try login with wrong password.
+- Expected: Correct login goes to Home; wrong password shows error; logout returns to Login.
+
+4) Profile
+- Step 1: Login.
+- Step 2: Open Profile page and check details load.
+- Step 3: Edit one field (ex: name) -> Save -> reopen Profile.
+- Expected: Profile loads; saved changes stay after reopen.
+
+5) Booking / Token (Book token)
+- Step 1: Login and open Book Token page.
+- Step 2: Choose a service and confirm booking.
+- Step 3: Open token details; try cancel/close if available.
+- Expected: Token is created; details are correct; cancel/close updates status.
+
+6) My Token + Token History
+- Step 1: After booking, open My Token page.
+- Step 2: Confirm the active token is shown.
+- Step 3: Open Token History page.
+- Expected: My Token shows active token; History shows past tokens and updates after new booking.
+
+7) Track Queue
+- Step 1: Open Track Queue page.
+- Step 2: Check position/status is visible.
+- Step 3: Refresh (pull to refresh / refresh button).
+- Expected: Values update; app does not freeze.
+
+8) Notifications
+- Step 1: Open Notifications page.
+- Step 2: Trigger a change (book token / token status update).
+- Step 3: Reopen Notifications and tap the newest item.
+- Expected: List loads; new notification appears; tapping opens the related screen (if linked).
+
+9) Help & Support / Feedback
+- Step 1: Open Help & Support page.
+- Step 2: Open Send Feedback.
+- Step 3: Enter a short message and submit.
+- Expected: Page loads; submission shows success/confirmation.
+
+
+PORTAL (ADMIN / STAFF) - MAIN TESTS
+
+11) Portal login
+- Step 1: Open Portal login.
+- Step 2: Login with admin account.
+- Step 3: Logout and login with staff account.
+- Expected: Admin opens admin dashboard; staff opens staff dashboard.
+
+12) Admin: Manage Services
+- Step 1: Login as admin -> open Manage Services.
+- Step 2: Create a new service -> Save.
+- Step 3: Edit the service -> Save; disable/delete if available.
+- Expected: Service appears; edits persist; status changes if disabled/deleted.
+
+13) Admin: Manage Staff
+- Step 1: Login as admin -> open Manage Staff.
+- Step 2: Add a staff user -> Save.
+- Step 3: Edit role/permissions -> Save.
+- Expected: Staff appears; role/permission updates persist.
+
+14) Admin: Manage Queues
+- Step 1: Login as admin -> open Manage Queues.
+- Step 2: Create/update queue settings -> Save.
+- Step 3: Open active queue/tokens view.
+- Expected: Settings persist; active queue/tokens load correctly.
+
+15) Staff: Counter assignment
+- Step 1: Login as staff -> open Counter Assignment.
+- Step 2: Select a counter and confirm.
+- Step 3: Switch to another counter (if allowed).
+- Expected: Assignment works; switching updates correctly.
+
+16) Staff: Queue management
+- Step 1: Login as staff -> open Queue Management / Token List.
+- Step 2: Check token list loads.
+- Step 3: Call next token; then mark served/no-show.
+- Expected: Status updates correctly; list updates accordingly.
+
+17) Staff: Send notification
+- Step 1: Login as staff -> open Send Notification.
+- Step 2: Choose token/user (or target group).
+- Step 3: Type short message -> Send.
+- Expected: Success confirmation; message appears for user (if notifications exist).
+
+DONE CHECK
+- Step 1: Repeat key flows (Login -> Book -> Track -> Logout).
+- Step 2: Restart app and re-check important pages load.
+- Step 3: Watch for UI/logic issues.
+- Expected: No crashes/blank screens; errors are clear; data updates after refresh/restart.
+

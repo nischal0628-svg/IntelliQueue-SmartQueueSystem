@@ -1,0 +1,1089 @@
+CS6P05NI FINAL YEAR PROJECT
+Module Code & Module Title
+CS6P05NI Project
+Interim Report
+25% Individual Coursework
+Submission: Final Submission
+AY 2025 2026
+Academic Semester: Autumn Semester 2025
+Credit: 30 Credit Year Long Module
+Student Name: Nischal Sentury
+London Met ID: 22068082
+Assignment Due Date: Tuesday, December 30, 2025
+Assignment Submission Date: Tuesday, December 30, 2025
+Internal Supervisor: Mr. Alish KC
+External Supervisor: Mr. Jagaran Maharjan
+I confirm that I understand my coursework needs to be submitted online via MST Classroom under the
+relevant module page before the deadline for my assignment to be accepted and marked. I am fully
+aware that late submissions will be treated as non-submission and a mark of zero will be awarded.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+2.4 Comparison Table of Similar Projects Table of Contents
+1. Introduction ................................................................................................................... 7
+1.1 Current Scenario.......................................................................................................................7
+1.2 Problem Statement ..................................................................................................................7
+1.3 Project as a Solution .................................................................................................................8
+1.4 Aim and Objectives...................................................................................................................9
+1.4.1 Aim. .............................................................................................................................................................. 9
+1.4.2 Objectives. ................................................................................................................................................... 9
+1.5 Report Structure .............................................................................................................. 10
+2. Background and Literature Review ............................................................................... 11
+2.1 About the End User / Client .................................................................................................... 11
+2.2 Understanding the Project ...................................................................................................... 13
+2.3 Review of Similar Projects ...................................................................................................... 15
+2.3.1.Qmatic Queue Management System ........................................................................................................ 15
+2.3.2 Skiplino Web-Based Queue System. ......................................................................................................... 15
+2.3.3 Hospital Queue Management Systems (Apollo, Singapore Health Services). .......................................... 16
+...................................................................................... 17
+2.5 Comparison Analysis of Similar Projects .................................................................................. 18
+3. Development Methodology .......................................................................................... 19
+3.1 Considered Methodologies ..................................................................................................... 19
+3.1.1. Waterfall Methodology ............................................................................................................................ 19
+3.1.2 Agile Scrum Methodology ......................................................................................................................... 20
+3.2 Selected Methodology.................................................................................................... 21
+3.2.1 Extreme Programming (XP) ....................................................................................................................... 21
+3.3 Work Breakdown Structure .................................................................................................... 22
+3.4 Gantt Chart ............................................................................................................................ 23
+4. Development Till Date .................................................................................................. 24
+4.1 System Architecture Diagram.................................................................................................. 24
+4.2 UML Diagrams ........................................................................................................................ 26
+Use Case Diagram (Core Interactions):............................................................................................................... 26
+Sequence Diagram. ............................................................................................................................................. 27
+User Signup. ........................................................................................................................................................ 27
+User Login. .......................................................................................................................................................... 28
+Book Token. ........................................................................................................................................................ 28
+Customer Queue Status...................................................................................................................................... 29
+Staff(Queue Management)................................................................................................................................. 29
+Admin(Manage Staffs) ........................................................................................................................................ 30
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Admin(Manage Queues)..................................................................................................................................... 30
+4.3 Flow Chart .............................................................................................................................. 31
+Register Account. ................................................................................................................................................ 31
+Login. .................................................................................................................................................................. 32
+Remote Token Booking. ..................................................................................................................................... 33
+On-Site Token. .................................................................................................................................................... 34
+QR check-In ......................................................................................................................................................... 35
+View Queue Status and ETA ............................................................................................................................... 36
+Notifications (Customer) .................................................................................................................................... 37
+Staff: Call Next Token ......................................................................................................................................... 38
+Staff: Skip or Cancel Token ................................................................................................................................. 39
+Admin: Manage Queues ..................................................................................................................................... 40
+Admin: Manage Staffs ........................................................................................................................................ 41
+4.5 UI Design Status (If Applicable). ........................................................................................ 42
+4.5.1 User (Mobile Application).......................................................................................................................... 42
+Signup. ................................................................................................................................................................ 42
+Signin. ................................................................................................................................................................. 43
+Home Page.......................................................................................................................................................... 44
+Book Token. ........................................................................................................................................................ 45
+Token Details. ..................................................................................................................................................... 46
+Queue Status. ..................................................................................................................................................... 47
+4.5.2 Staff (Web Application)........................................................................................................ 48
+Staff Dashboard. ................................................................................................................................................. 48
+Queue Management........................................................................................................................................... 49
+Counter Assignment. .......................................................................................................................................... 50
+4.5.3 Admin (Web Application) ..................................................................................................... 51
+Admin Dashboard. .............................................................................................................................................. 51
+Manage Staffs. .................................................................................................................................................... 52
+Manage Services. ................................................................................................................................................ 53
+4.6 Development Status with Evidence ......................................................................................... 54
+Login Page. .......................................................................................................................................................... 54
+Signup Page. ....................................................................................................................................................... 55
+Login Success. ..................................................................................................................................................... 56
+login screen showing validation errors for required fields. ............................................................................... 57
+Signup Screen showing validation errors for required fields. ............................................................................ 58
+Account Created. ................................................................................................................................................ 59
+home screen showing active token, people ahead, and estimated waiting time. ............................................ 60
+Firebase (Auth/Firestore) evidence. ................................................................................................................... 61
+5. Analysis of Progress ......................................................................................................... 62
+5.1 Progress Review ..................................................................................................................... 62
+5.2 Progress Table ........................................................................................................................ 63
+5.3 Action Plan ............................................................................................................................. 63
+6. Future Work..................................................................................................................... 64
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+6.1 Remaining Development Phases. ............................................................................................ 64
+6.2 Potential Enhancements Beyond Core Scope ........................................................................... 65
+7. Conclusion ....................................................................................................................... 67
+8. References ....................................................................................................................... 68
+9. Appendix...................................................................................................................... 69
+9.1 Technology Stack Summary .................................................................................................... 69
+9.2 Risk Mitigation Summary. ....................................................................................................... 70
+9.3 Additional Diagram. ............................................................................................................... 71
+Sequence Diagram-Token Details....................................................................................................................... 71
+Sequence Diagram-Notification. ........................................................................................................................ 72
+Sequence Diagram-Staff Login. .......................................................................................................................... 73
+Sequence Diagram-Staff Signup. ........................................................................................................................ 74
+Sequence Diagram-Staff Counter Assignment. .................................................................................................. 74
+Sequence Diagram-Staff Send notification. ....................................................................................................... 75
+Sequence Diagram-Admin Login. ....................................................................................................................... 75
+Sequence Diagram-Admin Signup. ..................................................................................................................... 76
+Sequence Diagram- Admin Manage Queue. ...................................................................................................... 76
+Sequence Diagram- Admin Manage Services. .................................................................................................... 77
+9.4 Additional UI. ......................................................................................................................... 78
+User (Mobile App) .............................................................................................................................................. 78
+Main page ........................................................................................................................................................... 78
+Profile Page. ........................................................................................................................................................ 79
+Staff (Web App) .................................................................................................................................................. 80
+Staff login ............................................................................................................................................................ 80
+Staff Signup ......................................................................................................................................................... 80
+Token List ............................................................................................................................................................ 81
+Send Notification. ............................................................................................................................................... 82
+Admin(Web App) ................................................................................................................................................ 83
+Admin login ......................................................................................................................................................... 83
+Admin Signup. ..................................................................................................................................................... 83
+Manage Queues.................................................................................................................................................. 84
+Analytics.............................................................................................................................................................. 85
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Figure 1: Work Breakdown Structure. .............................................................................. 22
+Figure 2: Gantt Chart. ....................................................................................................... 23
+Figure 3: System Architecture Diagram. .......................................................................... 24
+Figure 4: Use Case Diagram............................................................................................ 26
+Figure 5:User Signup. ...................................................................................................... 27
+Figure 6:User Login. ......................................................................................................... 28
+Figure 7:Book Token. ....................................................................................................... 28
+Figure 8: Customer Queue Status. .................................................................................. 29
+Figure 9: Staff(Queue Management). .............................................................................. 29
+Figure 10:Admin(Manage Staffs). .................................................................................... 30
+Figure 11:Admin(Manage Queues).................................................................................. 30
+Figure 12: Register Account. ............................................................................................ 31
+Figure 13:Login. ................................................................................................................ 32
+Figure 14: Remote Token Booking. ................................................................................. 33
+Figure 15:On-Site Token. ................................................................................................. 34
+Figure 16: QR check-In .................................................................................................... 35
+Figure 17: View Queue Status and ETA. ......................................................................... 36
+Figure 18: Notifications (Customer) ................................................................................. 37
+Figure 19:Staff: Call Next Token. ..................................................................................... 38
+Figure 20:Staff: Skip or Cancel Token. ............................................................................ 39
+Figure 21:Admin: Manage Queues. ................................................................................. 40
+Figure 22:Admin: Manage Queues. ................................................................................. 41
+Figure 23:Signup. ............................................................................................................. 42
+Figure 24:Signin. .............................................................................................................. 43
+Figure 25:Home Page. ..................................................................................................... 44
+Figure 26: Book Token. .................................................................................................... 45
+Figure 27:Token Details. .................................................................................................. 46
+Figure 28:Queue Status. .................................................................................................. 47
+Figure 29:Staff Dashboard. .............................................................................................. 48
+Figure 30: Queue Management. ...................................................................................... 49
+Figure 31: Counter Assignment. ...................................................................................... 50
+Figure 32:Admin Dashboard. ........................................................................................... 51
+Figure 33:Manage Staffs. ................................................................................................. 52
+Figure 34:Manage Services. ............................................................................................ 53
+Figure 35:Login Page. ...................................................................................................... 54
+Figure 36: Signup Page.................................................................................................... 55
+Figure 37: Login Success. ................................................................................................ 56
+Figure 38:login validation errors ....................................................................................... 57
+Figure 39:SignUp validation errors. ................................................................................. 58
+Figure 40:Account Created. ............................................................................................. 59
+Figure 41: home screen. .................................................................................................. 60
+Figure 42: Firebase. ......................................................................................................... 61
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Table 1: Comparison Table. ............................................................................................. 17
+Table 2: Progress Table. .................................................................................................. 63
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+1. Introduction
+1.1 Current Scenario
+Customer demand in the service sector in Nepal; the banking institutions, hospitals,
+government offices, and the privately operated service centers have enjoyed a gradual
+growth in customer demand as a result of population growth, urbanization, and the
+demand to have efficient service delivery. Although this has increased, the majority of the
+organizations still use the manual management techniques of queue management
+including the use of paper tokens, physical queues and verbal announcements
+(MarketsandMarkets, 2025).
+These legacy systems are also becoming inefficient in processing large numbers of
+service seekers especially when there is a peak in applications. Customers are forced to
+spend long durations physically waiting without an idea of how much time they should
+wait. This leads to the congestion of the waiting areas, wastage of customer time, and
+bad service experience altogether. This inefficiency may have severe implications in
+areas like healthcare and banking that may result in lost appointments, stress and work
+bottlenecks.
+There is also the absence of digital coordination that limits service providers to analyze
+the queue patterns, to achieve effective staff allocation, and proactive demands control.
+With the country moving towards digital transformation as part of the national efforts in
+Digital Nepal Framework, the lack of intelligent queue management software is an
+essential service modernization gap.
+1.2 Problem Statement
+The main issue that is tackled by this project is the fact that the service sector in Nepal
+still relies on manual and semi-digital queue management systems. The systems lack
+support of the current service demands like remote connectivity, real-time updates, and
+smart prioritization.
+• Manual dependency: Physical tokens and verbal calling systems are likely to fall
+prey to human error, loss of tokens, duplication, and poor management.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Absence of visibility: Customers have no sure way of monitoring their position in a
+queue which means that they are required to wait in-person when they do not need
+to do so.
+• Peak times overcrowding: Manual queues do not scale well and will cause
+discomfort and safety issues.
+• Poor prioritization: Manual processes are hard to use to manage senior citizens,
+VIPs, and emergency cases.
+• Inefficiency in operations: The employees will have to fill in queues by hand and
+will not have enough time to perform their core service functions which will
+decrease the productivity and will cause delays in the services.
+Research in similar service set ups suggests that digital queue management systems
+have the ability to reduce the perceived waiting time and service satisfaction by as much
+as 30-40 percent (MarketsandMarkets, 2025). The realization of this problem in the
+absence of such systems in Nepal raises the issue of the necessity of a technology-based
+solution on a large scale.
+1.3 Project as a Solution
+IntelliQueue is suggested to be an all-encompassing and immediate digital queue and
+token management scheme that allows updating service in several sectors. The system
+will substitute the manual management of queues with an integrated, cloud-based system
+that will allow the effective coordination of customer and service providers (Flutter, 2025).
+The major elements of the solutions are:
+• Remote booking: Customers have an opportunity to book a queue position in
+advance without having to be present at the point of service, which contributes to
+the elimination of physical crowding.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Live queue monitoring: Queues are monitored in real-time and the user is able to
+monitor the queue movement and determine the approximate arrival time (Cloud,
+2025).
+• Priority queue management: The management of the queue of the Normal queues,
+that of VIP and that of Senior Citizen are treated differently giving them fairness
+and flexibility in running.
+• AI-assisted wait-time estimation: Machine learning models use past queue history
+to make forecasts of waiting-time (Google, 2025).
+• QR-check-in mechanism: A contactless mechanism of confirming user presence
+on arrival is done through a secure and QR-based check-in mechanism.
+• Admin dashboard: The centralized websites allow service personnel to have full
+control over queues, counters, tokens, and notification.
+IntelliQueue uses modern mobile, cloud, and AI to enhance the efficiency of services and
+customer satisfaction, as well as the productivity of the staff.
+1.4 Aim and Objectives.
+1.4.1 Aim.
+To develop a real-time, AI-assisted digital queue management system that reduces
+physical waiting time, enhances service efficiency, and improves the overall customer
+experience in Nepal's service sector.
+1.4.2 Objectives.
+The project will achieve the following objectives:
+1. Build a cross-platform mobile application using Flutter that enables customers to
+book tokens, track queues, and receive notifications (Flutter, 2025).
+2. Develop a web-based admin dashboard for efficient queue, counter, and token
+management.
+3. Implement real-time synchronization using Firebase Firestore to ensure data
+consistency across all components (Google, 2025).
+4. Integrate priority queueing functionality supporting Normal, VIP, and Senior Citizen
+categories.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+5. Develop an AI-based wait-time estimation feature using machine learning
+algorithms.
+6. Implement push notifications via Firebase Cloud Messaging for real-time user
+alerts (Cloud, 2025).
+7. Conduct comprehensive functional, usability, and performance testing across all
+system components.
+8. Prepare complete technical and user documentation including system
+architecture, user manuals, and API specifications.
+1.5 Report Structure
+The interim report is done in such a manner to provide an explicit and systematic
+description of IntelliQueue project, problem context, proposed solution, research
+background, development methodology, progress analysis and future direction.
+Chapter 1: Introduction gives a preview of the existing service environment and the
+shortcoming of the old systems of queue management. It introduces the problem
+statement, justifies the work on the project, and introduces IntelliQueue as a possible
+solution. The objectives and goals of the project are also described in the chapter and a
+report structure is given at the end of the chapter.
+The next chapter, Chapter 2: Background and Literature Review looks into the
+background and literature review of the project by explaining the context of the end users
+and clients, the general idea and coverage of the project and previous digital queue
+management systems. A comparative study of similar projects is done to determine the
+gaps in the current solutions and need to have the proposed system.
+Chapter 3: Development Methodology addresses the software development
+methodologies which are taken into consideration in the project and it gives justification
+as to the kind of methodology selected. The work break structure and Gantt chart have
+also been included in this chapter to show how the project planning, allocation of tasks
+and scheduling are to be managed.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Chapter 4: Development Till Date introduces technical progress that is reached at the
+interim stage. It consists of system architecture and UML diagrams, flowcharts,
+wireframes, and first initial UI designs. There are also indicators of development progress
+made to monitor implementation efforts.
+Chapter 5: Analysis of Progress measures the progress of the project against the planned
+goals and schedules. It also examines the tasks done and still being done and gives a
+progress table, and a plan of action which focuses on the work left behind and obstacles
+that might be encountered.
+Chapter 6: Future Work explains the development activities and planned improvements
+that are to be done at the end of the interim. In this chapter, the authors concentrate on
+the completion of the system, on the extension of features and optimization of the
+performance, as well as the possible enhancement of scalability.
+Chapter 7: Conclusion is the summary of the work done up to this point and the reflection
+of the importance of the IntelliQueue project. It brings out major results of the interim
+stage and solidifies the role played by the project in enhancing efficiency in managing
+queues.
+Chapter 8: References contains all the academic and technical sources that have been
+used in writing the report, using the necessary citation format.
+Chapter 9: Appendix contains some extra materials, like extra diagrams, tables,
+screenshots, or documentation, which help to supplement the main content of the report.
+2. Background and Literature Review
+2.1 About the End User / Client
+The IntelliQueue system will cater to two main groups of end users, namely the service
+consumers (customers) and the service providers (administrative staff and management).
+These users work in a service oriented setting like banks, hospitals, government offices,
+learning institutions and individual service centers in which a queue based service
+delivery is usually observed (MarketsandMarkets, 2025).
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Service Consumers (End Users)
+Service consumers refer to those who demand services associated with a waiting period
+in queues. These customers are very diverse in regard to age, technical skills, time-
+sensitivity of service and accessibility requirements. Customers in the present service
+environment are commonly called upon to spend considerable time at service points
+without being able to clearly see how long queues are or how much time they have to
+wait. This affects productivity, comfort and satisfaction of the services negatively.
+The major attributes and requirements of service consumers are:
+• Remote access to queue information at any time with the use of mobile devices
+(Google, 2025).
+• On the spot queue position and approximate waiting time visibility.
+• Minimization of unwarranted physical waiting and congestion.
+• Equal opportunity given to special groups like the elderly or the emergencies.
+• Early alerts to prevent turn overs.
+IntelliQueue system can meet these requirements because it has a mobile based
+interface that enables users to book the tokens remotely, keep track of the queue
+movement in real time and also have automated alerts as their turn arrives. This will go a
+long way in enhancing transparency, convenience and user experience.
+Service Providers (Administrators and Staff)
+Front desk personnel, service counters, supervisors, and administrative staff are the
+service providers whose role is to manage queues and delivery of services. In the old
+type of the queue system, employees are expected to support distribution of tokens by
+hand, queue management and communication with the customers waiting, usually during
+the active service.
+The main problems faced by the service providers are:
+• Handling of queues manually which causes operational inefficiency.
+• Inability to control peak-hour traffic.
+• Absence of evidence-based information on performance of service.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Failure to dynamically react to queue flow or queue priority.
+IntelliQueue has provided a centralized web based administrator dashboard that allows
+service providers to manage queues effectively. Administrators are able to create and set
+up service queues, call/ skip token, assign counters, check the performance of queues,
+and provide real-time notifications. The digitized queue control system minimizes the
+workload of staff members and increases the work throughput of the service.
+Client Perspective
+In the client or organizational terms, IntelliQueue is used as a digital transformation tool,
+which improves the quality of the services, efficiency of its functioning, and customer
+satisfaction. Those organizations that have implemented the system enjoy the advantage
+of having a better management of crowds, the improved use of resources and the
+availability of an analytic data that can be used to make informed decisions.
+2.2 Understanding the Project
+The IntelliQueue project refers to a smart real-time digital queue and token management
+system that attempts to substitute the conventional manual queueing processes with a
+current and technological solution. The system intends to enhance the efficiency of
+service delivery by allowing users to access queues remotely, prioritization of users and
+service providers in an intelligent manner, and real-time communication.
+IntelliQueue is essentially a multi-platform application comprised of a mobile application
+used by customers, a web-based dashboard used by the administrators, and a cloud-
+based an endpoint used to store and process data. These elements interoperate to
+provide the desired effect of controlling queues and coordinated system operations.
+Core Functional Scope
+The main functionality modules of IntelliQueue system are:
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• User Registration and Authentication: Implement secure user access through
+cloud based authentication services (Google, 2025).
+• Token Booking and Queue Enrollment: The user is allowed to choose a service
+and receive a digital token without the need to be near the service.
+• Real-Time Queue Monitoring: Live updates on queue status, a token that is being
+served, and approximated waiting time (Google, 2025).
+• Priority Queue Management: Multiple queue types like: normal, VIP, and senior
+citizen queue.
+• Notification System: This will be an automated alert to notify users when they are
+about to go on their turn.
+• Admin Queue Control: Administrative tools to control queue flow, counters and
+service prioritization.
+• Reporting and Analytics (Planned): Basic reports will be generated to examine the
+service performance and queue trend.
+Technical Perspective
+Technically, IntelliQueue uses current technologies of application development in order
+to be scaled and responsive. Flutter is the language used to develop the mobile
+application, which makes it cross-platform compatible. It is also based on cloud services
+that support real time data syncing and high availability on the backend infrastructure.
+Cloud-based databases are used to ensure that queue data is updated immediately and
+made available to all the users who have the necessary access. The system will be
+developed to accommodate future support of AI-based modules to predictive waiting time
+estimation and smart queue optimization.
+Boundaries and Assumptions of the Project.
+IntelliQueue being an academic interim project is aimed at presenting a working prototype
+that illustrates the main concepts of queue management. Some of the features at the
+enterprise level, like optimization of large-scale deployment, integration with third
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+systems, and sophisticated analytics, are out of scope of the interim stage and are
+scheduled as the future improvements.
+The system presupposes the basic smartphone literacy and the internet connection of the
+users, which is consistent with the growing rates of mobile adoption in Nepal and other
+developing service conditions.
+2.3 Review of Similar Projects
+2.3.1.Qmatic Queue Management System
+Qmatic is a commercial queue management system that is highly deployed across the
+world in banking, healthcare, and government facilities in Europe, Asia, and the Middle
+East. The system offers digital tickets, live queue, bookings, and analytics (Qmatic, 2024).
+Strengths:
+• Enterprise-grade reliability
+• High-tech analytics and reporting (Qmatic, 2024).
+• Multi-channel (kiosks, web, mobile)
+Limitations:
+• Costs of high deployment and licensing.
+• Complex integration specifications.
+• Not adapted to small or resource limited institutions.
+2.3.2 Skiplino Web-Based Queue System.
+Skiplino is a digital queue management system that is based on the cloud technology and
+is used in the retail and banking sector (Skiplino, 2024). It allows the customers to
+purchase digital tickets using mobile applications or kiosks and get notifications, when it
+is their time.
+Strengths
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Mobile-first approach
+• Simple user experience
+• Good system of notification (Skiplino, 2024).
+Limitations:
+• Poor AI-based predictive abilities.
+• It is mostly used in commercial retailing.
+• Less adaptable to customisation in the public sector.
+2.3.3 Hospital Queue Management Systems (Apollo, Singapore Health Services).
+The use of integrated queue management systems, which are associated with hospital
+information systems (HIS), is in large healthcare facilities like the Apollo Hospitals (India)
+and Singapore Health Services. These systems deal with the management of patients,
+appointment, and handling of priority in the event of an emergency.
+Strengths:
+• Intensive interconnection with medical systems.
+• Successful priority and triage management.
+• Established decrease in wait time of patients.
+Limitations:
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Healthcare-specific to a large degree.
+• Difficult and expensive to implement.
+• Not replicable in other service industries.
+2.4 Comparison Table of Similar Projects
+S.N. Features Qmatic Skiplino
+Hospital
+Queue
+Systems
+IntelliQueue
+1 Digital Token
+System True True True True
+2 Remote Token
+Booking False True False True
+3 Real-Time
+Queue Tracking True True True True
+4 Priority Queue
+Handling True False True True
+5
+Mobile
+Application
+Support
+False True False True
+6 Notification
+System True True True True
+7 AI-based Wait
+Time Estimation False False False True
+8
+Admin
+Management
+Dashboard
+True True True True
+Table 1: Comparison Table.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+2.5 Comparison Analysis of Similar Projects
+Although the already available queue management tools show the efficacy of digital
+queue management, they tend to be industry specific, expensive, or so complex to
+implement in developing services such as Nepal (Qmatic, 2024) (Skiplino, 2024).
+IntelliQueue makes itself stand out by:
+• Cross sector flexibility: This is meant to be used by banking, healthcare,
+government, and non-heavyly customized services.
+• Affordable cloud design: Firebase-based infrastructure removes the necessity to
+use physical servers (Google, 2025).
+• Artificial intelligence-based estimation: Predictive waiting-time analysis contributes
+to transparency and planning.
+• Lightweight deployment: Mobile-first design minimizes the amount of hardware
+and operation overheads.
+• Local coverage: This is geared towards fitting the service infrastructure and digital
+preparedness of Nepal.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+3. Development Methodology
+3.1 Considered Methodologies
+To make a critical evaluation of the various development methodologies, some of the
+most popular development methodologies were considered to be the most suitable to
+develop the IntelliQueue system. The creation of the selected system was based on the
+nature of the project, complexity of the system, changing requirements, real-time data
+processing, and that the system is a single academic project being developed. The
+methodologies that will be used are the Waterfall model, the Agile Scrum methodology
+and the Extreme Programming (XP) (Sommerville, 2016).
+3.1.1. Waterfall Methodology
+The waterfall methodology can be described as a conventional, linear method of software
+development that entails a progressive sequence of stages, which usually involves
+requirement analysis, system design, implementation, testing, deployment, and
+maintenance. The stages should be done one stage after another and very little feedback
+is provided after a stage is done (Sommerville, 2016).
+It was the first methodology to be considered as it has a clear structure and it places a
+high emphasis on documentation, which satisfies the requirements of an academic
+project. Waterfall model is also quite useful when one has these projects in which the
+requirements are well defined, constant and are not likely to vary with time. It also eases
+the planning of a project and tracking any progress, thus, becoming easier to show that
+milestones have been met (Sommerville, 2016).
+Nonetheless, the IntelliQueue is a user-focused and real-time system, which is based on
+the constant improvement of the features as the queue logic, the notification time, and
+the user experience. These elements must be tested regularly and improved with
+repetitions depending on the observed behavior. The strict phase-based approach of the
+Waterfall model is such that changes in requirements when development is already past
+the design phase would be hard to implement. Also, early implementation feedback can
+not be readily integrated without going through earlier steps which makes development
+less risky but less flexible.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+These shortcomings rendered the Waterfall approach to the IntelliQueue project as
+inappropriate as it cannot facilitate progressive improvement and expediency
+experimentation, which is essential to real-time queue control systems.
+3.1.2 Agile Scrum Methodology
+Agile Scrum is an iterative and incremental development model underpinning flexibility,
+regular delivery of production software, and constant feedback with the stakeholders. The
+development process is planned in brief cycles called sprints, and these sprints usually
+take two to four weeks (Schwaber, 2020). Scrum has assigned certain roles like Product
+Owner, Scrum Master and Development Team, as well as Scrum ceremonies such as
+sprint planning, daily stand-ups, sprint reviews, and retrospectives.
+Scrum was taken into consideration due to its flexibility to changes in requirements and
+delivery of functional components that focus on small increments (Schwaber, 2020).
+These features are quite in line with projects that entail changing user requirements and
+real-time system functionality, including IntelliQueue. The sprint-based framework
+enables one to review the progress periodically and constantly improve the functionality
+of such aspects as the allocation of tokens, the control of the administrator, and the
+process of notifications.
+The Scrum however works best in team based developmental setting where roles and
+responsibilities can be easily shared. In a single developer scholarly venture, the official
+structure of Scrum brings about huge management overhead. Such activities like sprint
+ceremonies and role separation are not very helpful in the single-developer environment
+and can decrease the development efficiency. Furthermore, Scrum is not as focused on
+technical practices like constant testing and refactoring that are very important in ensuring
+reliability of real-time systems (Schwaber, 2020).
+Subsequently, although Agile Scrum is flexible and adaptable, it was not chosen as the
+main approach to be applied in this project because it has a procedural overhead and
+because it cannot be effectively used in the development situation of a solo project.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+3.2 Selected Methodology
+3.2.1 Extreme Programming (XP)
+Extreme Programming (XP) is an Agile software development approach that aims at
+enhancing software quality and responsiveness to evolving requirements by releasing
+software frequently, continuously testing it and integrating design and implementation.
+XP fosters technical excellence by focusing on practices like incremental development,
+continuous integration, refactoring and test driven development (Beck, 2004).
+XP was deemed to be very appropriate in the IntelliQueue system since it focused on
+brief development cycles, and quick feedback (Beck, 2004). The project consists of
+several elements such as mobile application, admin dashboard, real-time database
+operations, and AI-based wait-time estimation that have to be constantly validated and
+refined. XP facilitates quick identification of problems in the design and performance
+bottlenecks by constantly testing and refining.
+Moreover, XP is most appropriate in the project that involves a single or small team
+because it reduces the management overhead and enables the developer to concentrate
+more on implementation and quality assurance (Beck, 2004). The approach can be used
+to support requirement changes, which is also necessary in the case of IntelliQueue since
+such aspects like priority processing, queue management, and notification policies can
+be modified according to the results of testing and user feedback.
+Continuous refactoring is a practice that makes the system architecture clean and
+maintainable as the system is expanded. Incremental releases also enable the ability to
+develop and test some system functionality such as authentication and simple queue
+management with early stage of project lifecycle.
+Summary of Consideration
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+On the comparative analysis, the most suitable development methodology that fits the
+IntelliQueue project is Extreme Programming (XP). Compared to the Waterfall model, XP
+is flexible and more refinable, whereas compared to Scrum, it does not entail any
+unnecessary procedural overhead. XP offers a moderate solution that is in line with the
+technical complexity, real time nature and academic limitations of the project (Beck,
+2004).
+3.3 Work Breakdown Structure
+Figure 1: Work Breakdown Structure.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+3.4 Gantt Chart
+Figure 2: Gantt Chart.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4. Development Till Date
+4.1 System Architecture Diagram
+High-Level Architecture:
+Figure 3: System Architecture Diagram.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.2 UML Diagrams
+Use Case Diagram (Core Interactions):
+Figure 4: Use Case Diagram.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram.
+User Signup.
+Figure 5:User Signup.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+User Login.
+Figure 6:User Login.
+Book Token.
+Figure 7:Book Token.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Customer Queue Status
+Figure 8: Customer Queue Status.
+Staff(Queue Management)
+Figure 9: Staff(Queue Management).
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Admin(Manage Staffs)
+Figure 10:Admin(Manage Staffs).
+Admin(Manage Queues)
+Figure 11:Admin(Manage Queues).
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.3 Flow Chart
+Register Account.
+Figure 12: Register Account.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Login.
+Figure 13:Login.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Remote Token Booking.
+Figure 14: Remote Token Booking.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+On-Site Token.
+Figure 15:On-Site Token.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+QR check-In
+Figure 16: QR check-In
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+View Queue Status and ETA
+Figure 17: View Queue Status and ETA.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Notifications (Customer)
+Figure 18: Notifications (Customer)
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Staff: Call Next Token
+Figure 19:Staff: Call Next Token.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Staff: Skip or Cancel Token
+Figure 20:Staff: Skip or Cancel Token.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Admin: Manage Queues
+Figure 21:Admin: Manage Queues.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Admin: Manage Staffs
+Figure 22:Admin: Manage Queues.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.5 UI Design Status (If Applicable).
+4.5.1 User (Mobile Application)
+Signup.
+Figure 23:Signup.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Signin.
+Figure 24:Signin.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Home Page.
+Figure 25:Home Page.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Book Token.
+Figure 26: Book Token.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Token Details.
+Figure 27:Token Details.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Queue Status.
+Figure 28:Queue Status.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.5.2 Staff (Web Application)
+Staff Dashboard.
+Figure 29:Staff Dashboard.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Queue Management.
+Figure 30: Queue Management.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Counter Assignment.
+Figure 31: Counter Assignment.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.5.3 Admin (Web Application)
+Admin Dashboard.
+Figure 32:Admin Dashboard.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Manage Staffs.
+Figure 33:Manage Staffs.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Manage Services.
+Figure 34:Manage Services.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+4.6 Development Status with Evidence
+Login Page.
+Figure 35:Login Page.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Signup Page.
+Figure 36: Signup Page.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Login Success.
+Figure 37: Login Success.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+login screen showing validation errors for required fields.
+Figure 38:login validation errors
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Signup Screen showing validation errors for required fields.
+Figure 39:SignUp validation errors.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Account Created.
+Figure 40:Account Created.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+home screen showing active token, people ahead, and estimated waiting time.
+Figure 41: home screen.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Firebase (Auth/Firestore) evidence.
+Figure 42: Firebase.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+5. Analysis of Progress
+This section would analyze the IntelliQueue project against the planned objectives,
+timeline, and milestones of development. Since this is an interim report, it aims at
+evaluating the work done so far, challenges faced in the development process, and the
+corrective measures to be taken so that the project can be completed successfully.
+5.1 Progress Review
+During this interim submission, the IntelliQueue project has passed the first phase of
+planning, requirement analysis, and the system design successfully. Necessary abstract
+elements of the system have been spelt out, such as system architecture, user roles,
+queue workflow and interaction between mobile application, user dashboard and back-
+end services.
+Much has been done in the creation of the basic technical setup. The development stack
+is done and the first setup of the Flutter app and Firebase backend is finished (Flutter,
+2025) (Google, 2025). Queue and token management data structures and user
+authentication mechanisms are designed and partially implemented. Early UI wireframes
+and interface designs have also been drawn to be used later in implementation.
+Nonetheless, some of its more modern facilities, including AI-powered waiting time
+forecasts, real-time notification optimization, and QR check-in validation, are being
+designed and planned at the moment. These elements will need additional elaboration
+and testing and will be planned to be investigated in the next stage of the project.
+All in all, the project is on track according to the proposed plan of development. The
+intermediate phase has been mainly dedicated to development of a strong architectural
+and conceptual base that is very important in ensuring minimal implementation risks in
+the later stages.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+5.2 Progress Table
+Milestone Status Notes
+Project Initiation Completed Proposal submitted, supervisors assigned
+System Design & Architecture Completed UML, ERD, wireframes finalized
+Technology Stack Finalization Completed Flutter, Firebase, React/Python selected
+Dev Environment Setup In Progress IDE, SDK, Firebase config in progress
+Interim Report In Progress Report submission (today)
+Sprint 1: Authentication In Progress Login/Register implementation
+Sprint 2-3: Core Features In Progress Token booking, queue tracking
+Sprint 4-6: Advanced Features Planned Dashboard, priority handling, AI module
+Sprint 7-11: Testing & Deployment Planned QA, documentation, release
+Table 2: Progress Table.
+5.3 Action Plan
+In order to make sure that the IntelliQueue project is completed in time, it has created a
+structured action plan to complete the rest of the phases. The first issue is to finish the
+implementation of the main queue management features, and the second is the
+integration of real-time notifications and controls by the administrator.
+The second step will be oriented at the introduction of AI-assisted waiting time forecasting
+based on past queue information. At the same time, QR-check-in will be created with the
+help of which the correct validation of the user will take place during arrival. Strict testing
+will be done to determine performance problems, edge cases and usability problems
+(Cloud, 2025).
+Refinement of user interface and usability testing will be conducted in order to improve
+user experience on both mobile and admin platforms. Lastly, optimization of the systems,
+documentation and finalizing of reports will be done before the final submission.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+6. Future Work
+6.1 Remaining Development Phases.
+The project will progress through the following phases to completion by August 2026:
+Sprints 1-3 (Weeks 1-6): Core Feature Implementation.
+• Complete authentication module with password reset functionality.
+• Implement remote token booking with real-time token number generation.
+• Build queue tracking feature with live ETA display.
+• Set up Firebase Firestore real-time synchronization.
+• Create admin dashboard login and basic navigation.
+• Deploy initial push notifications via FCM.
+Sprints 4-6 (Weeks 7-12): Advanced Feature Development.
+• Implement priority queue management (Normal/VIP/Senior Citizen).
+• Build counter assignment functionality with staff management.
+• Develop AI-based wait-time prediction module with historical data analysis.
+• Create comprehensive admin analytics dashboard.
+• Implement QR-based check-in with barcode scanning.
+• Add multi-branch support with centralized administration.
+Sprints 10-11 (Weeks 19-24): Comprehensive Testing.
+• Functional testing of all features with test cases and evidence.
+• Usability testing with real users (sample from banking, healthcare, government
+sectors).
+• Performance testing under high load (simulating peak-hour traffic).
+• Real-time synchronization stress testing across multiple devices.
+• Security testing for authentication and authorization.
+• Cross-platform testing (Android, iOS, Web browsers) (Flutter, 2025).
+Documentation Phase (Weeks 25-30): Complete Documentation.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• Prepare system architecture documentation with diagrams.
+• Write API documentation for potential third-party integrations (Google, 2025).
+• Create user manuals (customer app guide, staff dashboard guide, admin manual).
+• Prepare technical deployment guide for service centers.
+• Document testing methodology and results.
+• Create video tutorials for user onboarding.
+Deployment Phase (Weeks 31-36): Production Release.
+• Deploy admin dashboard to Firebase Hosting with custom domain.
+• Generate Android APK and prepare for Google Play Store.
+• Set up iOS build and prepare for App Store (future phase).
+• Conduct final security audit and penetration testing.
+• Prepare backup and disaster recovery procedures.
+• Create production monitoring and logging infrastructure.
+• Perform final user acceptance testing (UAT).
+6.2 Potential Enhancements Beyond Core Scope
+Future versions may include:
+• iOS App Support: Extend Flutter application to native iOS deployment and App
+Store release.
+• Advanced Analytics: Machine learning-based demand forecasting for service
+centers to optimize staffing during predicted peak hours.
+• SMS Integration: SMS-based queue updates for users without smartphone
+access,
+similar to DBS SMS 'Q' model.
+• Multi-language Support: Localization for Nepali, English, and other regional
+languages to improve accessibility.
+• Payment Integration: Online payment gateway for priority queue upgrades (if
+institutions choose to offer premium services).
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+• API for Third-party Integration: RESTful APIs to integrate IntelliQueue with existing
+institutional systems (banking software, hospital management systems,
+government portals) (Google, 2025).
+• Voice Notifications: Automated voice calls for users with hearing impairments.
+• Accessibility Features: Enhanced support for users with disabilities (high contrast
+mode, larger fonts, screen reader optimization).
+• Geolocation Services: Branch locator with distance calculation and navigation
+Integration.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+7. Conclusion
+This is an interim report detailing the design, analysis and progress of the IntelliQueue
+project, a smart digital queue management system, which is to enhance the service
+efficiency and user experience. The report presented the existing issues of existing
+service management systems on the use of the traditional queue management systems
+and the rationale of the necessity to have a new and technological solution to the problem.
+The project requirements were clearly outlined through an extensive literature review and
+analysis of other existing systems. The relevant development methodologies were
+considered and Extreme Programming (XP) was chosen as the best method. The system
+architecture, UML diagrams and workflow designs were created to give a blue print of
+how it would be implemented.
+At this transitional point, the project has accomplished its intended design goals and
+established a strong base on which the other developments will be done. The next phases
+will involve completion of the features, system integration, testing and optimization. When
+it is completed, IntelliQueue should provide a scalable, efficient and user-friendly solution
+that will help to overcome the shortcomings of the traditional queue management systems
+and will help to increase the levels of service delivery.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+8. References.
+Bibliography
+Flutter, 2025. Flutter documentation. [Online]
+Available at: https://docs.flutter.dev/
+[Accessed 27 12 2025].
+Google, 2025. Firestore | Firebase. [Online]
+Available at: https://firebase.google.com/docs/firestore
+[Accessed 26 12 2025].
+Google, 2025. Get started with Firebase Cloud Messaging. [Online]
+Available at: https://firebase.google.com/docs/cloud-messaging/get-started
+[Accessed 26 12 2025].
+Cloud, G., 2025. Get real-time updates | Firestore in Native mode. [Online]
+Available at: https://cloud.google.com/firestore/native/docs/query-data/listen
+[Accessed 26 12 2025].
+Qmatic, 2024. Product Updates 2024 Recap. [Online]
+Available at: https://www.qmatic.com/product-updates/2024-recap
+[Accessed 21 12 2025].
+Qmatic, 2024. Qmatic — Queue Management Systems & Customer Journey. [Online]
+Available at: https://www.qmatic.com
+[Accessed 19 12 2025].
+Skiplino, 2024. Skiplino Help Center. [Online]
+Available at: https://help.skiplino.com/en/articles/4209900-notifications
+[Accessed 18 12 2025].
+Schwaber, K. ,. J., 2020. The Scrum Guide: The Definitive Guide to Scrum: The Rules
+of the Game, s.l.: s.n.
+MarketsandMarkets, 2025. Queue Management System Market Size & Forecast,
+[Latest]. [Online]
+Available at: https://www.marketsandmarkets.com/Market-Reports/queue-management-
+system-market-23961354.html
+[Accessed 18 12 2025].
+Sommerville, I., 2016. Software Engineering. Boston: Pearson Education Limited.
+Beck, K., 2004. Extreme Programming Explained: Embrace Change. s.l.:Addison-
+Wesley Professional.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+9. Appendix
+9.1 Technology Stack Summary
+Layer Technology Purpose
+Frontend
+(Mobile)
+Flutter/Dart (Flutter,
+2025)
+Cross-platform mobile app for
+iOS/Android
+Frontend
+(Web)
+React or Flutter Web Admin dashboard interface
+Backend Firebase Real-time database,
+authentication, messaging
+(Google, 2025)
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Database Firestore NoSQL document database for
+real-time sync (Google, 2025)
+AI/ML Python +
+TensorFlow/Scikit-learn
+Wait-time prediction model
+Authentication Firebase Auth User login and access control
+(Google, 2025)
+Noti cation s Firebase Cloud
+Messaging (FCM)
+Push notifications to users
+Hosting Firebase Hosting Web dashboard deployment
+Version
+Control
+GitHub Source code management and
+collaboration
+Design Figma UI/UX prototyping and design
+handoff.
+Testing Flutter Test +
+Firebase Emulator
+Unit, widget, integration testing
+(Flutter, 2025)
+9.2 Risk Mitigation Summary.
+Risk Imp act Probability Mitigation Strategy
+Real-time sync
+delays
+High Medium Early performance testing,
+Firestore optimization, load testing
+Firebase quota
+limits
+Medium Low Implement caching, optimize queries,
+Firebase pricing monitoring
+Deployment
+challenges
+High Low Staging environment setup, backup
+configs, documentation
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+User adoption
+barriers
+Medium Medium Intuitive UI/UX, onboarding
+guides, video tutorials, user
+feedback loops
+Data entry errors Medium Medium Input validation, conformation
+prompts, data sanitization
+Technology
+learning curve
+Medium High Official docs/tutorials, iterative
+development, continuous learning
+Internet/Firebase
+downtime
+Medium Low Online support, manual fallback
+controls, redundancy testing
+AI model
+inaccuracy
+Medium Medium Historical data validation,
+continuous model training,
+feedback loops
+Security
+vulnerabilities
+High Low Code review, security testing,
+Firebase rule validation,
+encryption
+Scope creep Medium High Clear requirements, regular supervisor
+check-ins, change management
+9.3 Additional Diagram.
+Sequence Diagram-Token Details.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram-Notification.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram-Staff Login.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram-Staff Signup.
+Sequence Diagram-Staff Counter Assignment.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram-Staff Send notification.
+Sequence Diagram-Admin Login.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram-Admin Signup.
+Sequence Diagram- Admin Manage Queue.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Sequence Diagram- Admin Manage Services.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+9.4 Additional UI.
+User (Mobile App)
+Main page
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Profile Page.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Staff (Web App)
+Staff login
+Staff Signup
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Token List
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Send Notification.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Admin(Web App)
+Admin login
+Admin Signup.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Manage Queues.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Analytics.
+Nischal Sentury
+CS6P05NI FINAL YEAR PROJECT
+Nischal Sentury

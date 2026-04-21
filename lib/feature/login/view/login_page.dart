@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intelliqueue/feature/home/view/home_page.dart';
+import 'package:intelliqueue/feature/login/view/forgot_password_page.dart';
 import 'package:intelliqueue/feature/signup/view/signup_page.dart';
+import 'package:intelliqueue/local_auth/local_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,9 +15,77 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  bool _isPasswordVisible = false;
+  bool _isLoading = false;
+
+  String? validatePhone(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Phone number is required';
+    }
+    if (value.length != 10) {
+      return 'Enter a valid 10-digit phone';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    return null;
+  }
+
+  Future<void> signIn() async {
+    FocusScope.of(context).unfocus(); // close keyboard
+
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final result = await LocalAuth.signIn(
+        phone: phoneController.text,
+        password: passwordController.text,
+      );
+
+      if (!result.ok) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(result.message ?? 'Login failed, please try again')),
+          );
+        }
+        return;
+      }
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login successful!')),
+        );
+        // Navigate explicitly (avoids cases where root listener doesn't rebuild).
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const HomePage()),
+        );
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('GENERIC LOGIN ERROR: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Unexpected error, please try again later'),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                         6.verticalSpace,
                         TextFormField(
                           controller: phoneController,
+                          validator: validatePhone,
                           decoration: InputDecoration(
                             hintText: "Enter phone number",
                             border: OutlineInputBorder(
@@ -129,12 +201,34 @@ class _LoginPageState extends State<LoginPage> {
                         6.verticalSpace,
                         TextFormField(
                           controller: passwordController,
-                          obscureText: true,
+                          validator: validatePassword,
+                          obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
                             hintText: "Enter password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible = !_isPasswordVisible;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+
+                        8.verticalSpace,
+                        Text(
+                          "Password must be at least 8 characters.",
+                          style: TextStyle(
+                            fontSize: 11.sp,
+                            color: Colors.grey.shade600,
                           ),
                         ),
 
@@ -143,7 +237,15 @@ class _LoginPageState extends State<LoginPage> {
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ForgotPasswordPage(
+                                    initialPhone: phoneController.text.trim(),
+                                  ),
+                                ),
+                              );
+                            },
                             child: const Text(
                               "Forgot Password?",
                               style: TextStyle(color: Colors.blue),
@@ -156,23 +258,30 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 48.h,
                           child: ElevatedButton(
-                            onPressed: () {
-                              print("Logged in");
-                            },
+                            onPressed: _isLoading ? null : signIn,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFFF8D28),
+                              backgroundColor: const Color(0xFFFF8D28),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
                             ),
-                            child: const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            child: _isLoading
+                                ? const SizedBox(
+                                    height: 22,
+                                    width: 22,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : const Text(
+                                    "Sign In",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                           ),
                         ),
 
@@ -183,6 +292,13 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             const Text("Don't have an account?"),
                             TextButton(
+                              style: TextButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                foregroundColor: Colors.blue,
+                                splashFactory:
+                                    InkRipple.splashFactory, // clear ripple
+                              ),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -193,7 +309,10 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               child: const Text(
                                 "Sign Up",
-                                style: TextStyle(color: Colors.blue),
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ],

@@ -1,0 +1,7 @@
+flutter run -d chrome
+
+python3 -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8080
+
+
+flutter run
+
