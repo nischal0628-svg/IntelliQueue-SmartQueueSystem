@@ -55,8 +55,12 @@ class _ManageStaffPageState extends State<ManageStaffPage> {
         title: const Text('Delete this staff member?'),
         content: const Text('This action cannot be undone.'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Delete')),
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel')),
+          FilledButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Delete')),
         ],
       ),
     );
@@ -65,11 +69,13 @@ class _ManageStaffPageState extends State<ManageStaffPage> {
     try {
       await _repo.deleteStaff(staffId);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Deleted')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Deleted')));
       await _load();
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -95,7 +101,8 @@ class _ManageStaffPageState extends State<ManageStaffPage> {
                 onPressed: _loading ? null : () => _addOrEdit(null),
                 style: PortalAdminTableChrome.primaryButtonStyle(),
                 icon: const Icon(Icons.person_add_alt_1, size: 20),
-                label: const Text('+ Add Staff', style: TextStyle(fontWeight: FontWeight.w600)),
+                label: const Text('+ Add Staff',
+                    style: TextStyle(fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -109,7 +116,8 @@ class _ManageStaffPageState extends State<ManageStaffPage> {
                         ? Center(
                             child: Text(
                               'No staff found',
-                              style: TextStyle(color: Colors.grey.shade600, fontSize: 15),
+                              style: TextStyle(
+                                  color: Colors.grey.shade600, fontSize: 15),
                             ),
                           )
                         : _StaffCard(
@@ -171,17 +179,20 @@ class _StaffCard extends StatelessWidget {
             ),
             body: ListView.separated(
               itemCount: rows.length,
-              separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey.shade200),
+              separatorBuilder: (_, __) =>
+                  Divider(height: 1, color: Colors.grey.shade200),
               itemBuilder: (context, index) {
                 final r = rows[index];
                 final staffId = (r['staffId'] ?? '').toString();
                 final name = (r['name'] ?? '').toString();
                 final role = (r['role'] ?? '').toString();
-                final counterName = (r['assignedCounterName'] ?? '-').toString();
+                final counterName =
+                    (r['assignedCounterName'] ?? '-').toString();
                 final status = (r['status'] ?? 'active').toString();
                 final isAdmin = role == 'admin';
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -189,21 +200,26 @@ class _StaffCard extends StatelessWidget {
                         flex: 3,
                         child: Text(
                           name.isEmpty ? '—' : name,
-                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF111827)),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF111827)),
                         ),
                       ),
                       Expanded(
                         flex: 2,
                         child: Text(
                           _prettyRole(role),
-                          style: TextStyle(fontSize: 14, color: Colors.grey.shade800),
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade800),
                         ),
                       ),
                       Expanded(
                         flex: 2,
                         child: Text(
                           counterName.isEmpty ? '—' : counterName,
-                          style: TextStyle(fontSize: 14, color: Colors.grey.shade800),
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade800),
                         ),
                       ),
                       Expanded(
@@ -222,25 +238,40 @@ class _StaffCard extends StatelessWidget {
                               onPressed: isAdmin ? null : () => onEdit(r),
                               icon: Icon(
                                 Icons.edit_outlined,
-                                color: isAdmin ? Colors.grey.shade400 : PortalAdminTableChrome.actionRed,
+                                color: isAdmin
+                                    ? Colors.grey.shade400
+                                    : PortalAdminTableChrome.actionRed,
                                 size: 22,
                               ),
                               style: IconButton.styleFrom(
-                                foregroundColor: isAdmin ? Colors.grey.shade400 : PortalAdminTableChrome.actionRed,
-                                hoverColor: isAdmin ? null : PortalAdminTableChrome.actionRed.withValues(alpha: 0.08),
+                                foregroundColor: isAdmin
+                                    ? Colors.grey.shade400
+                                    : PortalAdminTableChrome.actionRed,
+                                hoverColor: isAdmin
+                                    ? null
+                                    : PortalAdminTableChrome.actionRed
+                                        .withValues(alpha: 0.08),
                               ),
                             ),
                             IconButton(
                               tooltip: 'Delete',
-                              onPressed: isAdmin ? null : () => onDelete(staffId),
+                              onPressed:
+                                  isAdmin ? null : () => onDelete(staffId),
                               icon: Icon(
                                 Icons.delete_outline,
-                                color: isAdmin ? Colors.grey.shade400 : PortalAdminTableChrome.actionRed,
+                                color: isAdmin
+                                    ? Colors.grey.shade400
+                                    : PortalAdminTableChrome.actionRed,
                                 size: 22,
                               ),
                               style: IconButton.styleFrom(
-                                foregroundColor: isAdmin ? Colors.grey.shade400 : PortalAdminTableChrome.actionRed,
-                                hoverColor: isAdmin ? null : PortalAdminTableChrome.actionRed.withValues(alpha: 0.08),
+                                foregroundColor: isAdmin
+                                    ? Colors.grey.shade400
+                                    : PortalAdminTableChrome.actionRed,
+                                hoverColor: isAdmin
+                                    ? null
+                                    : PortalAdminTableChrome.actionRed
+                                        .withValues(alpha: 0.08),
                               ),
                             ),
                           ],

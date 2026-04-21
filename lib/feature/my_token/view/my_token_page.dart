@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intelliqueue/feature/book_token/view/book_token_page.dart';
@@ -15,12 +16,23 @@ class MyTokenPage extends StatefulWidget {
 
 class _MyTokenPageState extends State<MyTokenPage> {
   bool _isCancelling = false;
+  Timer? _pollTimer;
 
   @override
   void initState() {
     super.initState();
-    // Best-effort: sync status from backend (so completed tokens disappear).
+    // Immediate sync + periodic polling so the token disappears automatically
+    // when staff completes it in the web portal.
     LocalAuth.refreshActiveBookingFromBackend();
+    _pollTimer = Timer.periodic(const Duration(seconds: 4), (_) {
+      LocalAuth.refreshActiveBookingFromBackend();
+    });
+  }
+
+  @override
+  void dispose() {
+    _pollTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -373,4 +385,3 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
-
