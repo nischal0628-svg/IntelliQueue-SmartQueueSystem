@@ -54,13 +54,15 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   children: [
                     Text(
                       'No Notifications',
-                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                          fontSize: 18.sp, fontWeight: FontWeight.w700),
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       'Updates about your token will appear here.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade700),
+                      style: TextStyle(
+                          fontSize: 13.sp, color: Colors.grey.shade700),
                     ),
                   ],
                 ),
@@ -77,7 +79,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
             },
             child: ListView.separated(
               itemCount: items.length,
-              separatorBuilder: (_, __) => Divider(height: 1, color: Colors.grey.shade300),
+              separatorBuilder: (_, __) =>
+                  Divider(height: 1, color: Colors.grey.shade300),
               itemBuilder: (context, index) {
                 final item = items[index];
                 final id = (item['notificationId'] ?? '').toString();
@@ -85,7 +88,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 final subtitle = (item['subtitle'] ?? '').toString();
                 final createdAt = (item['createdAt'] ?? '').toString();
                 final unread = item['isRead'] != true;
-                final relatedBookingId = (item['relatedBookingId'] ?? '').toString();
+                final relatedBookingId =
+                    (item['relatedBookingId'] ?? '').toString();
 
                 return InkWell(
                   onTap: () async {
@@ -94,20 +98,35 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
                     await Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => NotificationDetailPage(notification: item),
+                        builder: (_) =>
+                            NotificationDetailPage(notification: item),
                       ),
                     );
 
                     if (!context.mounted) return;
                     setState(() => _itemsFuture = _reload());
-                    if (relatedBookingId.isNotEmpty) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const MyTokenPage()),
-                      );
+                    // Only navigate to token page for active/serving tokens.
+                    final type = (item['type'] ?? '').toString();
+                    final activeTypes = {
+                      'booking_confirmed',
+                      'now_serving',
+                      'turn_soon'
+                    };
+                    if (relatedBookingId.isNotEmpty &&
+                        activeTypes.contains(type)) {
+                      final active =
+                          LocalAuth.getActiveBookingForCurrentUserSync();
+                      if (active != null && context.mounted) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (_) => const MyTokenPage()),
+                        );
+                      }
                     }
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -119,19 +138,25 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                 title,
                                 style: TextStyle(
                                   fontSize: 14.5.sp,
-                                  fontWeight: unread ? FontWeight.w700 : FontWeight.w600,
+                                  fontWeight: unread
+                                      ? FontWeight.w700
+                                      : FontWeight.w600,
                                   color: Colors.grey.shade900,
                                 ),
                               ),
                               SizedBox(height: 6.h),
                               Text(
                                 subtitle,
-                                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade600),
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.grey.shade600),
                               ),
                               SizedBox(height: 6.h),
                               Text(
                                 _timeAgo(createdAt),
-                                style: TextStyle(fontSize: 11.sp, color: Colors.grey.shade500),
+                                style: TextStyle(
+                                    fontSize: 11.sp,
+                                    color: Colors.grey.shade500),
                               ),
                             ],
                           ),

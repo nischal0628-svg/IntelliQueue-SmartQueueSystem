@@ -1,13 +1,13 @@
-import 'dart:async';
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:intelliqueue/shared/api_config.dart';
 import 'package:intelliqueue/shared/data_contract.dart';
 import 'package:intelliqueue/shared/sync_pack.dart';
+import 'package:intelliqueue/shared/api_config.dart';
+import 'package:http/http.dart' as http;
 
 class LocalAuthResult {
   final bool ok;
@@ -54,11 +54,7 @@ class LocalAuth {
   static Timer? _queueTimer;
   static const int _defaultCounters = 3;
   static bool _initialized = false;
-  static const Set<String> _activeBookingStatuses = {
-    'active',
-    'waiting',
-    'serving'
-  };
+  static const Set<String> _activeBookingStatuses = {'active', 'waiting', 'serving'};
 
   static Future<void> init() async {
     if (_initialized) return;
@@ -144,13 +140,11 @@ class LocalAuth {
   /// Import Admin "Config Sync Pack" JSON into mobile Hive.
   /// Applies: branches + services (counters/staff users are ignored on mobile for now).
   static Future<LocalAuthResult> importConfigSyncPackJson(String json) async {
-    if (!_initialized)
-      return const LocalAuthResult.fail('Local database is not initialized');
+    if (!_initialized) return const LocalAuthResult.fail('Local database is not initialized');
     try {
       final pack = SyncPack.fromJsonString(json);
       if (pack.type != SyncPackType.config) {
-        return const LocalAuthResult.fail(
-            'Invalid sync pack type (expected config)');
+        return const LocalAuthResult.fail('Invalid sync pack type (expected config)');
       }
 
       final data = pack.data;
@@ -199,9 +193,7 @@ class LocalAuth {
     bool isToday(String iso) {
       try {
         final dt = DateTime.parse(iso).toLocal();
-        return dt.year == now.year &&
-            dt.month == now.month &&
-            dt.day == now.day;
+        return dt.year == now.year && dt.month == now.month && dt.day == now.day;
       } catch (_) {
         return false;
       }
@@ -237,25 +229,21 @@ class LocalAuth {
   /// Import Web/Admin "Ops Sync Pack" JSON into mobile Hive.
   /// Phase 6 use-case: bring in broadcast notifications sent from staff web.
   static Future<LocalAuthResult> importOpsSyncPackJson(String json) async {
-    if (!_initialized)
-      return const LocalAuthResult.fail('Local database is not initialized');
+    if (!_initialized) return const LocalAuthResult.fail('Local database is not initialized');
     try {
       final pack = SyncPack.fromJsonString(json);
       if (pack.type != SyncPackType.ops) {
-        return const LocalAuthResult.fail(
-            'Invalid sync pack type (expected ops)');
+        return const LocalAuthResult.fail('Invalid sync pack type (expected ops)');
       }
 
       final data = pack.data;
       final incomingBookings = _asListOfMaps(data[SyncPackDataKeys.bookings]);
       final incomingQueue = _asListOfMaps(data[SyncPackDataKeys.queueState]);
-      final incomingNotifs =
-          _asListOfMaps(data[SyncPackDataKeys.notifications]);
+      final incomingNotifs = _asListOfMaps(data[SyncPackDataKeys.notifications]);
 
       // Notifications: newest wins per notificationId
-      final existingNotifs = _notificationsBox.values
-          .map((e) => Map<String, dynamic>.from(e))
-          .toList();
+      final existingNotifs =
+          _notificationsBox.values.map((e) => Map<String, dynamic>.from(e)).toList();
       final mergedNotifs = mergeByUpdatedAt(
         existing: existingNotifs,
         incoming: incomingNotifs,
@@ -269,9 +257,8 @@ class LocalAuth {
 
       // Bookings + queue_state import are optional; keep safe + newest-wins.
       if (incomingBookings.isNotEmpty) {
-        final existingBookings = _bookingsBox.values
-            .map((e) => Map<String, dynamic>.from(e))
-            .toList();
+        final existingBookings =
+            _bookingsBox.values.map((e) => Map<String, dynamic>.from(e)).toList();
         final mergedBookings = mergeByUpdatedAt(
           existing: existingBookings,
           incoming: incomingBookings,
@@ -288,17 +275,14 @@ class LocalAuth {
         String queueKeyOf(Map<String, dynamic> m) {
           final qk = (m['queueKey'] ?? '').toString();
           if (qk.isNotEmpty) return qk;
-          final b =
-              (m[BookingFields.branchId] ?? m['branchId'] ?? '').toString();
-          final s =
-              (m[BookingFields.serviceId] ?? m['serviceId'] ?? '').toString();
+          final b = (m[BookingFields.branchId] ?? m['branchId'] ?? '').toString();
+          final s = (m[BookingFields.serviceId] ?? m['serviceId'] ?? '').toString();
           final k = '$b:$s';
           return k == ':' ? '' : k;
         }
 
-        final existingQueue = _queueStateBox.values
-            .map((e) => Map<String, dynamic>.from(e))
-            .toList();
+        final existingQueue =
+            _queueStateBox.values.map((e) => Map<String, dynamic>.from(e)).toList();
         final normalizedExisting = existingQueue.map((e) {
           e['queueKey'] = queueKeyOf(e);
           return e;
@@ -337,10 +321,8 @@ class LocalAuth {
   static ValueListenable<Box> sessionListenable() => _sessionBox.listenable();
   static ValueListenable<Box> usersListenable() => _usersBox.listenable();
   static ValueListenable<Box> bookingsListenable() => _bookingsBox.listenable();
-  static ValueListenable<Box> queueStateListenable() =>
-      _queueStateBox.listenable();
-  static ValueListenable<Box> notificationsListenable() =>
-      _notificationsBox.listenable();
+  static ValueListenable<Box> queueStateListenable() => _queueStateBox.listenable();
+  static ValueListenable<Box> notificationsListenable() => _notificationsBox.listenable();
   static ValueListenable<Box> feedbackListenable() => _feedbackBox.listenable();
 
   static String? currentUserPhone() {
@@ -385,10 +367,8 @@ class LocalAuth {
     if (phone == null) return const LocalAuthResult.fail('Please login first');
 
     final trimmed = message.trim();
-    if (trimmed.isEmpty)
-      return const LocalAuthResult.fail('Message is required');
-    if (trimmed.length < 5)
-      return const LocalAuthResult.fail('Message is too short');
+    if (trimmed.isEmpty) return const LocalAuthResult.fail('Message is required');
+    if (trimmed.length < 5) return const LocalAuthResult.fail('Message is too short');
 
     final id = DateTime.now().microsecondsSinceEpoch.toString();
     await _feedbackBox.put(id, <String, dynamic>{
@@ -410,9 +390,8 @@ class LocalAuth {
         .where((f) => f['userPhone'] == phone)
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
-    items.sort((a, b) => (b['createdAt'] ?? '')
-        .toString()
-        .compareTo((a['createdAt'] ?? '').toString()));
+    items.sort((a, b) =>
+        (b['createdAt'] ?? '').toString().compareTo((a['createdAt'] ?? '').toString()));
     return items;
   }
 
@@ -427,8 +406,7 @@ class LocalAuth {
       return const LocalAuthResult.fail('Phone number is required');
     }
     if (_usersBox.containsKey(normalizedPhone)) {
-      return const LocalAuthResult.fail(
-          'An account already exists for this phone');
+      return const LocalAuthResult.fail('An account already exists for this phone');
     }
 
     final salt = _generateSalt(normalizedPhone);
@@ -443,6 +421,16 @@ class LocalAuth {
       'createdAt': DateTime.now().toIso8601String(),
     });
 
+    // Clear any notifications from a previous user session before starting fresh.
+    for (final key in _notificationsBox.keys.toList()) {
+      final n = _notificationsBox.get(key);
+      if (n == null) continue;
+      final nPhone = (n['userPhone'] ?? '').toString();
+      // Remove personal notifications that don't belong to this new user.
+      if (nPhone.isNotEmpty && nPhone != normalizedPhone) {
+        await _notificationsBox.delete(key);
+      }
+    }
     await _sessionBox.put(_sessionKeyCurrentPhone, normalizedPhone);
     // Best-effort: register on backend (so Admin can reset password).
     await _tryRegisterCustomerToBackend(
@@ -468,6 +456,7 @@ class LocalAuth {
       password: password,
     );
     if (backend == _BackendLoginResult.ok) {
+      await _clearOtherUsersNotifications(normalizedPhone);
       await _sessionBox.put(_sessionKeyCurrentPhone, normalizedPhone);
       return const LocalAuthResult.ok();
     }
@@ -491,6 +480,7 @@ class LocalAuth {
       return const LocalAuthResult.fail('Incorrect password');
     }
 
+    await _clearOtherUsersNotifications(normalizedPhone);
     await _sessionBox.put(_sessionKeyCurrentPhone, normalizedPhone);
     // Best-effort: ensure this customer exists on backend so Admin can reset password.
     final name = (user['name'] ?? '').toString().trim();
@@ -547,10 +537,7 @@ class LocalAuth {
           )
           .timeout(const Duration(seconds: 2));
       if (res.statusCode == 200) return _BackendLoginResult.ok;
-      if (res.statusCode == 400 ||
-          res.statusCode == 401 ||
-          res.statusCode == 403 ||
-          res.statusCode == 404) {
+      if (res.statusCode == 400 || res.statusCode == 401 || res.statusCode == 403 || res.statusCode == 404) {
         return _BackendLoginResult.invalidCredentials;
       }
       return _BackendLoginResult.offline;
@@ -559,7 +546,32 @@ class LocalAuth {
     }
   }
 
+  /// Remove all personal notifications that don't belong to [phone].
+  /// Broadcast notifications (userPhone null/empty) are kept.
+  static Future<void> _clearOtherUsersNotifications(String phone) async {
+    for (final key in _notificationsBox.keys.toList()) {
+      final n = _notificationsBox.get(key);
+      if (n == null) continue;
+      final nPhone = (n['userPhone'] ?? '').toString();
+      if (nPhone.isNotEmpty && nPhone != phone) {
+        await _notificationsBox.delete(key);
+      }
+    }
+  }
+
   static Future<void> signOut() async {
+    final phone = currentUserPhone();
+    // Clear all personal notifications belonging to this user.
+    if (phone != null && phone.isNotEmpty) {
+      for (final key in _notificationsBox.keys.toList()) {
+        final n = _notificationsBox.get(key);
+        if (n == null) continue;
+        final nPhone = (n['userPhone'] ?? '').toString();
+        if (nPhone == phone) {
+          await _notificationsBox.delete(key);
+        }
+      }
+    }
     await _sessionBox.delete(_sessionKeyCurrentPhone);
   }
 
@@ -617,10 +629,8 @@ class LocalAuth {
   // ----------------------------
 
   static Future<List<Map>> listBranches() async {
-    final values =
-        _branchesBox.values.map((e) => Map<String, dynamic>.from(e)).toList();
-    values.sort((a, b) =>
-        (a['name'] ?? '').toString().compareTo((b['name'] ?? '').toString()));
+    final values = _branchesBox.values.map((e) => Map<String, dynamic>.from(e)).toList();
+    values.sort((a, b) => (a['name'] ?? '').toString().compareTo((b['name'] ?? '').toString()));
     return values;
   }
 
@@ -628,13 +638,10 @@ class LocalAuth {
     // Always try to pull fresh services from backend so admin changes appear immediately.
     await _syncServicesFromBackend();
     final values = _servicesBox.values
-        .where((e) =>
-            e['branchId'] == branchId &&
-            (e['isActive'] == true || e['isActive'] == 1))
+        .where((e) => e['branchId'] == branchId && (e['isActive'] == true || e['isActive'] == 1))
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
-    values.sort((a, b) =>
-        (a['name'] ?? '').toString().compareTo((b['name'] ?? '').toString()));
+    values.sort((a, b) => (a['name'] ?? '').toString().compareTo((b['name'] ?? '').toString()));
     return values;
   }
 
@@ -645,7 +652,7 @@ class LocalAuth {
     try {
       // Fetch branches
       final branchRes = await http
-          .get(Uri.parse('${ApiConfig.baseUrl}/admin/branches'))
+          .get(Uri.parse(ApiConfig.baseUrl + '/admin/branches'))
           .timeout(const Duration(seconds: 4));
       if (branchRes.statusCode == 200) {
         final branches = jsonDecode(branchRes.body);
@@ -667,7 +674,7 @@ class LocalAuth {
 
       // Fetch all services
       final svcRes = await http
-          .get(Uri.parse('${ApiConfig.baseUrl}/admin/services'))
+          .get(Uri.parse(ApiConfig.baseUrl + '/admin/services'))
           .timeout(const Duration(seconds: 4));
       if (svcRes.statusCode == 200) {
         final services = jsonDecode(svcRes.body);
@@ -681,8 +688,7 @@ class LocalAuth {
             final svcMap = <String, dynamic>{
               ...Map<String, dynamic>.from(s),
               'isActive': s['isActive'] == true || s['isActive'] == 1,
-              'defaultEtaMinutes':
-                  (s['defaultEtaMinutes'] as num?)?.toInt() ?? 15,
+              'defaultEtaMinutes': (s['defaultEtaMinutes'] as num?)?.toInt() ?? 15,
             };
             await _servicesBox.put(id, svcMap);
           }
@@ -805,15 +811,11 @@ class LocalAuth {
     final phone = currentUserPhone();
     if (phone == null) return null;
     final bookings = _bookingsBox.values
-        .where((b) =>
-            b['userPhone'] == phone &&
-            _activeBookingStatuses.contains((b['status'] ?? '').toString()))
+        .where((b) => b['userPhone'] == phone && _activeBookingStatuses.contains((b['status'] ?? '').toString()))
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
     if (bookings.isEmpty) return null;
-    bookings.sort((a, b) => (b['createdAt'] ?? '')
-        .toString()
-        .compareTo((a['createdAt'] ?? '').toString()));
+    bookings.sort((a, b) => (b['createdAt'] ?? '').toString().compareTo((a['createdAt'] ?? '').toString()));
     return bookings.first;
   }
 
@@ -821,15 +823,12 @@ class LocalAuth {
     final phone = currentUserPhone();
     if (phone == null) return null;
     final bookings = _bookingsBox.values
-        .where((b) =>
-            b['userPhone'] == phone &&
-            _activeBookingStatuses.contains((b['status'] ?? '').toString()))
+        .where((b) => b['userPhone'] == phone && _activeBookingStatuses.contains((b['status'] ?? '').toString()))
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
     if (bookings.isEmpty) return null;
-    bookings.sort((a, b) => (b['createdAt'] ?? '')
-        .toString()
-        .compareTo((a['createdAt'] ?? '').toString()));
+    bookings.sort((a, b) =>
+        (b['createdAt'] ?? '').toString().compareTo((a['createdAt'] ?? '').toString()));
     return bookings.first;
   }
 
@@ -869,16 +868,14 @@ class LocalAuth {
     }
 
     final queueKey = '$branchId:$serviceId';
-    final queue = Map<String, dynamic>.from(
-        _queueStateBox.get(queueKey) ?? <String, dynamic>{});
+    final queue = Map<String, dynamic>.from(_queueStateBox.get(queueKey) ?? <String, dynamic>{});
 
     // Sync live queue from backend to get accurate waiting count and token counter.
     int backendWaitingCount = -1; // -1 means backend was unreachable
     int backendServingCount = 0;
     int backendMaxTokenNum = 0;
     try {
-      final queueUrl =
-          Uri.parse('${ApiConfig.baseUrl}/customer/queue/$branchId/$serviceId');
+      final queueUrl = Uri.parse(ApiConfig.baseUrl + '/customer/queue/' + branchId + '/' + serviceId);
       final qRes = await http.get(queueUrl).timeout(const Duration(seconds: 2));
       if (qRes.statusCode == 200) {
         final qData = jsonDecode(qRes.body);
@@ -926,16 +923,13 @@ class LocalAuth {
                 .whereType<Map>()
                 .map((e) => Map<String, dynamic>.from(e)))
         : _normalizeWaitingQueue(queue['waitingTokens']);
-    final nowServingList = (queue['nowServing'] is List)
-        ? (queue['nowServing'] as List)
-        : <dynamic>[];
+    final nowServingList = (queue['nowServing'] is List) ? (queue['nowServing'] as List) : <dynamic>[];
     final nowServing = nowServingList;
     final avgWaitMinutes = (queue['avgWaitMinutes'] as int?) ??
         (service['defaultEtaMinutes'] as int?) ??
         15;
     final rawCounters = (queue['counters'] as int?) ?? counters;
-    final countersCount =
-        rawCounters > _defaultCounters ? _defaultCounters : rawCounters;
+    final countersCount = rawCounters > _defaultCounters ? _defaultCounters : rawCounters;
 
     final nextCounter = lastCounter + 1;
     final tokenNumber = 'A${nextCounter.toString().padLeft(3, '0')}';
@@ -971,8 +965,7 @@ class LocalAuth {
       'status': 'active',
       'estimatedWaitMinutes': etaMinutes,
       'position': position,
-      'queueSize':
-          nowServingCount + waitingQueueForCalc.length + 1, // includes self
+      'queueSize': nowServingCount + waitingQueueForCalc.length + 1, // includes self
       'peopleAhead': peopleAhead,
     };
 
@@ -1057,8 +1050,7 @@ class LocalAuth {
 
     // After backend confirms, fetch the real queue to correct position/ETA.
     try {
-      final queueUrl =
-          Uri.parse('${ApiConfig.baseUrl}/customer/queue/$branchId/$serviceId');
+      final queueUrl = Uri.parse(ApiConfig.baseUrl + '/customer/queue/' + branchId + '/' + serviceId);
       final qRes = await http.get(queueUrl).timeout(const Duration(seconds: 3));
       if (qRes.statusCode != 200) return;
       final qData = jsonDecode(qRes.body);
@@ -1077,8 +1069,8 @@ class LocalAuth {
       final updated = Map<String, dynamic>.from(raw);
 
       // Check if our token is now being served.
-      final isServing = bServing.any(
-          (e) => e is Map && (e['tokenNumber'] ?? '').toString() == myToken);
+      final isServing = bServing.any((e) =>
+          e is Map && (e['tokenNumber'] ?? '').toString() == myToken);
       if (isServing) {
         updated['position'] = 1;
         updated['peopleAhead'] = 0;
@@ -1098,8 +1090,7 @@ class LocalAuth {
           final position = servingCount + idx + 1;
           final peopleAhead = position - 1;
           final avgWait = (raw['avgWaitMinutes'] as int?) ??
-              (_servicesBox.get(serviceId)?['defaultEtaMinutes'] as int?) ??
-              15;
+              (_servicesBox.get(serviceId)?['defaultEtaMinutes'] as int?) ?? 15;
           updated['position'] = position;
           updated['peopleAhead'] = peopleAhead;
           updated['queueSize'] = queueSize <= 0 ? 1 : queueSize;
@@ -1161,9 +1152,7 @@ class LocalAuth {
                 // Keep local status if already completed/cancelled; otherwise follow backend.
                 final s = decoded['status'].toString();
                 final localStatus = (updated['status'] ?? '').toString();
-                if (localStatus == 'active' ||
-                    localStatus == 'waiting' ||
-                    localStatus == 'serving') {
+                if (localStatus == 'active' || localStatus == 'waiting' || localStatus == 'serving') {
                   updated['status'] = s;
                 }
               }
@@ -1205,12 +1194,9 @@ class LocalAuth {
 
         final updated = Map<String, dynamic>.from(booking);
         updated['status'] = status;
-        if (status == 'completed')
-          updated['completedAt'] = decoded['completedAt'];
-        if (status == 'cancelled')
-          updated['cancelledAt'] = decoded['cancelledAt'];
-        if (decoded['tokenNumber'] != null)
-          updated['tokenNumber'] = decoded['tokenNumber'].toString();
+        if (status == 'completed') updated['completedAt'] = decoded['completedAt'];
+        if (status == 'cancelled') updated['cancelledAt'] = decoded['cancelledAt'];
+        if (decoded['tokenNumber'] != null) updated['tokenNumber'] = decoded['tokenNumber'].toString();
         // When being served, show zero wait and position 1.
         if (status == 'serving') {
           updated['estimatedWaitMinutes'] = 0;
@@ -1249,11 +1235,8 @@ class LocalAuth {
         final raw = Map<String, dynamic>.from(entry.value);
         final userPhone = raw['userPhone'];
         final type = (raw['type'] ?? '').toString();
-        final isBroadcast =
-            (userPhone == null) || (userPhone.toString().trim().isEmpty);
-        if (isBroadcast &&
-            type == 'staff_broadcast' &&
-            !incomingIds.contains(id)) {
+        final isBroadcast = (userPhone == null) || (userPhone.toString().trim().isEmpty);
+        if (isBroadcast && type == 'staff_broadcast' && !incomingIds.contains(id)) {
           await _notificationsBox.delete(id);
         }
       }
@@ -1264,9 +1247,11 @@ class LocalAuth {
         final m = Map<String, dynamic>.from(item);
         final id = (m['notificationId'] ?? '').toString();
         if (id.isEmpty) continue;
-        // Normalize isRead to bool
-        final isRead = m['isRead'] == true;
-        m['isRead'] = isRead;
+        // Preserve local isRead=true — once read locally, keep it read.
+        final backendIsRead = m['isRead'] == true;
+        final existing = _notificationsBox.get(id);
+        final localIsRead = existing != null && existing['isRead'] == true;
+        m['isRead'] = backendIsRead || localIsRead;
         await _notificationsBox.put(id, m);
         upserted++;
       }
@@ -1398,22 +1383,31 @@ class LocalAuth {
     return false;
   }
 
-  static Future<List<Map<String, dynamic>>>
-      listNotificationsForCurrentUser() async {
+  static Future<List<Map<String, dynamic>>> listNotificationsForCurrentUser() async {
     final phone = currentUserPhone();
     if (phone == null) return [];
+    // Only show broadcasts from the last 24 hours to avoid old irrelevant ones.
+    final cutoff = DateTime.now().subtract(const Duration(hours: 24));
     final items = _notificationsBox.values
-        .where((n) =>
-            // personal
-            (n['userPhone'] == phone) ||
-            // broadcast (null or empty)
-            (n['userPhone'] == null) ||
-            ((n['userPhone'] ?? '').toString().trim().isEmpty))
+        .where((n) {
+          final nPhone = (n['userPhone'] ?? '').toString().trim();
+          final isMine = nPhone == phone;
+          final isBroadcast = nPhone.isEmpty;
+          if (!isMine && !isBroadcast) return false;
+          // For broadcasts, only show recent ones.
+          if (isBroadcast) {
+            try {
+              final dt = DateTime.parse((n['createdAt'] ?? '').toString());
+              return dt.isAfter(cutoff);
+            } catch (_) {
+              return false;
+            }
+          }
+          return true;
+        })
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
-    items.sort((a, b) => (b['createdAt'] ?? '')
-        .toString()
-        .compareTo((a['createdAt'] ?? '').toString()));
+    items.sort((a, b) => (b['createdAt'] ?? '').toString().compareTo((a['createdAt'] ?? '').toString()));
     return items;
   }
 
@@ -1455,13 +1449,11 @@ class LocalAuth {
 
         // Force all queues to max 3 counters (global setting).
         final rawCounters = (queue['counters'] as int?) ?? _defaultCounters;
-        final counters =
-            rawCounters > _defaultCounters ? _defaultCounters : rawCounters;
+        final counters = rawCounters > _defaultCounters ? _defaultCounters : rawCounters;
         final waitingQueue = _normalizeWaitingQueue(queue['waitingTokens']);
         final nowServing = (queue['nowServing'] is List)
             ? List<Map<String, dynamic>>.from(
-                (queue['nowServing'] as List)
-                    .map((e) => Map<String, dynamic>.from(e as Map)),
+                (queue['nowServing'] as List).map((e) => Map<String, dynamic>.from(e as Map)),
               )
             : <Map<String, dynamic>>[];
 
@@ -1472,8 +1464,7 @@ class LocalAuth {
           final name = (e['counterName'] ?? '').toString();
           final idxStr = name.replaceAll(RegExp(r'[^0-9]'), '');
           final idx = int.tryParse(idxStr) ?? 0;
-          final isOverflow =
-              idx > counters && (e['tokenNumber'] ?? '').toString().isNotEmpty;
+          final isOverflow = idx > counters && (e['tokenNumber'] ?? '').toString().isNotEmpty;
           if (isOverflow) overflow.add(e);
           return isOverflow;
         });
@@ -1497,8 +1488,7 @@ class LocalAuth {
           if (waitingQueue.isEmpty) break;
           final counterName = 'Counter $i';
           if (existingCounters.contains(counterName)) continue;
-          final token =
-              (waitingQueue.removeAt(0)['tokenNumber'] ?? '').toString();
+          final token = (waitingQueue.removeAt(0)['tokenNumber'] ?? '').toString();
           nowServing.add({
             'tokenNumber': token,
             'counterName': counterName,
@@ -1550,9 +1540,7 @@ class LocalAuth {
       final bookingId = entry.key.toString();
       final raw = entry.value;
       final rawStatus = (raw['status'] ?? '').toString();
-      if (rawStatus != 'active' &&
-          rawStatus != 'waiting' &&
-          rawStatus != 'serving') continue;
+      if (rawStatus != 'active' && rawStatus != 'waiting' && rawStatus != 'serving') continue;
       if (raw['branchId'] != branchId) continue;
       if (raw['serviceId'] != serviceId) continue;
 
@@ -1578,8 +1566,7 @@ class LocalAuth {
           await _createNotification(
             userPhone: userPhone,
             title: 'Now Serving',
-            subtitle:
-                '${updated['branchName'] ?? ''} • ${updated['serviceName'] ?? ''}',
+            subtitle: '${updated['branchName'] ?? ''} • ${updated['serviceName'] ?? ''}',
             type: 'now_serving',
             relatedBookingId: bookingId,
           );
@@ -1617,8 +1604,7 @@ class LocalAuth {
           }
         } else {
           // Token missing from queue_state lists; keep previous values.
-          updated['queueSize'] =
-              queueSize <= 0 ? (updated['queueSize'] ?? 1) : queueSize;
+          updated['queueSize'] = queueSize <= 0 ? (updated['queueSize'] ?? 1) : queueSize;
         }
       }
 
@@ -1648,9 +1634,8 @@ class LocalAuth {
         .where((b) => status == null ? true : b['status'] == status)
         .map((e) => Map<String, dynamic>.from(e))
         .toList();
-    items.sort((a, b) => (b['createdAt'] ?? '')
-        .toString()
-        .compareTo((a['createdAt'] ?? '').toString()));
+    items.sort((a, b) =>
+        (b['createdAt'] ?? '').toString().compareTo((a['createdAt'] ?? '').toString()));
     return items;
   }
 
@@ -1677,14 +1662,12 @@ class LocalAuth {
     final serviceId = (updated['serviceId'] ?? '').toString();
     if (branchId.isNotEmpty && serviceId.isNotEmpty) {
       final queueKey = '$branchId:$serviceId';
-      final queue = Map<String, dynamic>.from(
-          _queueStateBox.get(queueKey) ?? <String, dynamic>{});
+      final queue = Map<String, dynamic>.from(_queueStateBox.get(queueKey) ?? <String, dynamic>{});
       final token = (updated['tokenNumber'] ?? '').toString();
       final waitingQueue = _normalizeWaitingQueue(queue['waitingTokens']);
       final nowServing = (queue['nowServing'] is List)
           ? List<Map<String, dynamic>>.from(
-              (queue['nowServing'] as List)
-                  .map((e) => Map<String, dynamic>.from(e as Map)),
+              (queue['nowServing'] as List).map((e) => Map<String, dynamic>.from(e as Map)),
             )
           : <Map<String, dynamic>>[];
 
@@ -1701,8 +1684,7 @@ class LocalAuth {
     await _createNotification(
       userPhone: phone,
       title: 'Token Cancelled',
-      subtitle:
-          '${updated['branchName'] ?? ''} • ${updated['serviceName'] ?? ''}',
+      subtitle: '${updated['branchName'] ?? ''} • ${updated['serviceName'] ?? ''}',
       type: 'token_cancelled',
       relatedBookingId: bookingId,
     );
