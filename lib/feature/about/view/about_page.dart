@@ -19,7 +19,7 @@ class _AboutPageState extends State<AboutPage> {
     super.initState();
     _infoFuture = PackageInfo.fromPlatform();
   }
-
+//aboutpage
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
